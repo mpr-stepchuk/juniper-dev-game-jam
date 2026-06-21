@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Player : CharacterBody2D
 {
@@ -8,30 +9,55 @@ public partial class Player : CharacterBody2D
 	public const float DashDistance = 200.0f;
 	public const float DashDuration = 0.15f;
 	public const float DashSpeed = DashDistance / DashDuration;
+	public const int MaxGuts = 100;
+	public const float MaxSpins = 100.0f;
 	
 	private bool _isDashing = false;
-	private bool _canAirDash;
-	private float _dashTimer = 0f;
+	private bool _isAttacking = false;
+	private bool _facingRight = true;
+	private bool _canAirDash = true;
+	private float _attackTimer = 0.0f;
+	private float _dashTimer = 0.0f;
+	
 	private Vector2 _dashDirection;
+	// tracks all hurtboxes hit by a hitbox while it's active to prevent multi-hits
+	private HashSet<HurtBox> _hurtboxesHit;
+	
+	private AttackData _currentAttack;
+	
+	// TODO: preload this instead
+	[Export] public AttackData AtkLight;
+	[Export] public AttackData AtkHeavy;
 	
 	private AnimatedSprite2D _animatedSprite2D;
-	private AudioStreamPlayer2D _jumpSFX;
+	private AnimationPlayer _animationPlayer;
+	private AudioStreamPlayer2D _testSFX;
+	private Area2D _areaAtk;
+	private CollisionShape2D _hitboxAtk;
+	
+	
 	
 	public override void _Ready()
 	{
-		_canAirDash = true;
+		// fetch nodes
 		_animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		_jumpSFX = GetNode<AudioStreamPlayer2D>("JumpSFX");
+		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		_testSFX = GetNode<AudioStreamPlayer2D>("testSFX");
+		_areaAtk = GetNode<Area2D>("AnimatedSprite2D/AttackArea");
+		_hitboxAtk = GetNode<CollisionShape2D>("AnimatedSprite2D/AttackArea/AttackHitbox"); 
+		// connect signals
+		_areaAtk.AreaEntered += OnAttackAreaEntered;
+		//instantiate objects
+		_hurtboxesHit = new();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
-		
-		HandleGravity(ref velocity, delta);
-		
-		// Get the input direction and handle the movement/deceleration.
 		Vector2 direction = Input.GetVector("left", "right", "up", "down"); 
+		CheckFlipped(ref direction);
+		HandleGravity(ref velocity, delta);
+		HandleAttack(delta);
 		
 		HandleMovement(ref direction, ref velocity, delta);
 		
@@ -41,6 +67,71 @@ public partial class Player : CharacterBody2D
 		HandleAnimation(direction, velocity);
 		
 	}
+	
+	private void CheckFlipped(ref Vector2 direction) {
+		if (direction.X < 0 && _facingRight) {
+			_facingRight = false;
+		} else if (direction.X > 0 && !_facingRight) {
+			_facingRight = true;
+		} 
+	}
+	
+	private void HandleAttack(double delta) {		
+		if (_isAttacking)
+			return;
+		if (Input.IsActionJustPressed("atk_light")) {
+			_isAttacking = true;
+			_currentAttack = AtkLight;
+		} else if (Input.IsActionJustPressed("atk_heavy")) {
+			_isAttacking = true;
+			_currentAttack = AtkHeavy;
+		}
+		if (_isAttacking) {
+			BuildHitbox();
+			_animatedSprite2D.Play(_currentAttack.AnimationName); 
+			_animationPlayer.Play(_currentAttack.AnimationName);
+		} 
+	}
+	// CHANGE NAME OF ENABLE DISABLE BOX ONCE THIS WORKS SO ANIMATION PLAYER DOESN'T BRICK
+	private void BuildHitbox() {
+		Vector2 offset = _currentAttack.HitboxOffset;
+		if (!_facingRight) {
+			offset.X *= -1;
+		}
+		_areaAtk.Position = offset;
+		_hitboxAtk.Scale = _currentAttack.HitboxScale;
+	}
+	
+	private void OnAttackAreaEntered(Area2D area) {
+		GD.Print("ENTITY DETECTED IN HITBOX");
+		
+		if (area is not HurtBox hurtbox)
+			return;
+			
+		if (_hurtboxesHit.Contains(hurtbox))
+			return;
+			
+		if (!hurtbox.Friendly) {
+			_hurtboxesHit.Add(hurtbox);
+			hurtbox.ApplyHit(_currentAttack.Damage, _currentAttack.KnockbackForce, _currentAttack.KnockbackAngle, _currentAttack.KnockbackDuration);
+		}
+	}
+	
+	public void EnableHitbox() {	
+		_hitboxAtk.Disabled = false;
+		_testSFX.Play();
+		_hurtboxesHit.Clear();
+	}
+	
+	public void DisableHitbox() {
+		_hitboxAtk.Disabled = true;
+	}
+	
+	public void AttackFinished() {
+		_attackTimer = 0.0f;
+		_isAttacking = false;
+	}
+	
 	
 	private void HandleGravity (ref Vector2 velocity, double delta) {
 		// Add the gravity.
@@ -85,7 +176,6 @@ public partial class Player : CharacterBody2D
 		if (Input.IsActionJustPressed("up") && IsOnFloor())
 		{
 			velocity.Y = JumpVelocity;
-			_jumpSFX.Play();
 		}
 
 		if (direction.X != 0.0f)
@@ -100,6 +190,9 @@ public partial class Player : CharacterBody2D
 	}
 	
 	private void HandleAnimation(Vector2 direction, Vector2 velocity) {
+		if (_isAttacking) {
+			return;
+		}
 		if (velocity.X > 1 || velocity.X < -1) {
 			_animatedSprite2D.Play("run");
 		} else {
@@ -114,9 +207,9 @@ public partial class Player : CharacterBody2D
 			}
 		}
 		
-		if (direction.X == 1.0f) {
+		if (_facingRight) {
 			_animatedSprite2D.SetFlipH(false);
-		} else if (direction.X == -1.0f) {
+		} else if (!_facingRight) {
 			_animatedSprite2D.SetFlipH(true);
 		}
 	}
