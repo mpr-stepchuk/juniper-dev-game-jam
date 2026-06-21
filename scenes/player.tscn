@@ -381,7 +381,7 @@ AtkHeavy = ExtResource("3_5rmtj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_h3qt1")
-animation = &"atk_light"
+animation = &"atk_heavy"
 autoplay = "idle"
 
 [node name="AttackArea" type="Area2D" parent="AnimatedSprite2D"]

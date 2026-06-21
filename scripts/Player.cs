@@ -118,9 +118,9 @@ public partial class Player : CharacterBody2D
 	}
 	
 	public void EnableHitbox() {	
+		_hurtboxesHit.Clear();
 		_hitboxAtk.Disabled = false;
 		_testSFX.Play();
-		_hurtboxesHit.Clear();
 	}
 	
 	public void DisableHitbox() {
