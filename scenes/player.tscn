@@ -381,7 +381,7 @@ AtkHeavy = ExtResource("3_5rmtj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_h3qt1")
-animation = &"atk_heavy"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="AttackArea" type="Area2D" parent="AnimatedSprite2D"]
@@ -403,3 +403,11 @@ stream = ExtResource("6_5028x")
 libraries = {
 "": SubResource("AnimationLibrary_r7e6a")
 }
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -100)
+zoom = Vector2(1.5, 1.5)
+limit_left = -562
+limit_top = -358
+limit_right = 590
+limit_bottom = 290

@@ -62,6 +62,11 @@ public partial class Player : CharacterBody2D
 		HandleMovement(ref direction, ref velocity, delta);
 		
 		Velocity = velocity;
+		if (Input.IsActionPressed("down")) {
+			SetCollisionMaskValue(5, false);
+		} else {
+			SetCollisionMaskValue(5, true);
+		}
 		MoveAndSlide();
 		
 		HandleAnimation(direction, velocity);
