@@ -1,0 +1,13 @@
+res://scenes/player.tscn
+res://scripts/AttackData.cs
+res://resources/player/Player_HeavyAttack.tres
+res://scenes/main.tscn
+res://scenes/level.tscn
+res://scenes/sandbag.tscn
+res://scripts/Sandbag.cs
+res://scripts/HurtBox.cs
+res://scripts/Player.cs
+res://scenes/map.tscn
+res://scenes/roulette_wheel.tscn
+res://scenes/character_body_2d.tscn
+res://scripts/roulette_wheel_rich_text.gd
