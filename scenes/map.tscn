@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=4 uid="uid://cun3plgjglbxb"]
+[gd_scene load_steps=17 format=4 uid="uid://cun3plgjglbxb"]
 
 [ext_resource type="Texture2D" uid="uid://dh7dxl5gpsvxn" path="res://assets/sprites/tiles/Starter Tiles - Platformer/Starter Tiles Platformer/FireSet.png" id="1_c7s6e"]
 [ext_resource type="Texture2D" uid="uid://dskaicc5c6r6d" path="res://assets/sprites/tiles/Starter Tiles - Platformer/Starter Tiles Platformer/DarkCastle.png" id="1_wijl4"]
 [ext_resource type="Texture2D" uid="uid://j1dpyi4smqbe" path="res://assets/sprites/tiles/platform.png" id="3_e0an3"]
 [ext_resource type="PackedScene" uid="uid://b483270gfcoxu" path="res://scenes/roulette_wheel.tscn" id="5_urblq"]
 [ext_resource type="PackedScene" uid="uid://dn3o1yvtr16rp" path="res://scenes/player.tscn" id="5_vrrr4"]
+[ext_resource type="PackedScene" uid="uid://djgibgeixrmty" path="res://scenes/sandbag.tscn" id="6_ew3uw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0an3"]
 texture = ExtResource("1_wijl4")
@@ -231,3 +232,6 @@ script = null
 [node name="player" parent="." instance=ExtResource("5_vrrr4")]
 position = Vector2(31, -51)
 scale = Vector2(1, 1)
+
+[node name="sandbag" parent="." instance=ExtResource("6_ew3uw")]
+position = Vector2(-79, -138)

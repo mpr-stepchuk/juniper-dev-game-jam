@@ -2,19 +2,19 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Player : CharacterBody2D
+using Dizzy;
+
+public partial class Player : Actor
 {
 	public const float Speed = 450.0f;
 	public const float JumpVelocity = -800.0f;
 	public const float DashDistance = 200.0f;
 	public const float DashDuration = 0.15f;
 	public const float DashSpeed = DashDistance / DashDuration;
-	public const int MaxGuts = 100;
-	public const float MaxSpins = 100.0f;
 	
+	private DizzyStats stats;
 	private bool _isDashing = false;
 	private bool _isAttacking = false;
-	private bool _facingRight = true;
 	private bool _canAirDash = true;
 	private float _attackTimer = 0.0f;
 	private float _dashTimer = 0.0f;
@@ -29,8 +29,6 @@ public partial class Player : CharacterBody2D
 	[Export] public AttackData AtkLight;
 	[Export] public AttackData AtkHeavy;
 	
-	private AnimatedSprite2D _animatedSprite2D;
-	private AnimationPlayer _animationPlayer;
 	private AudioStreamPlayer2D _testSFX;
 	private Area2D _areaAtk;
 	private CollisionShape2D _hitboxAtk;
@@ -40,8 +38,7 @@ public partial class Player : CharacterBody2D
 	public override void _Ready()
 	{
 		// fetch nodes
-		_animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		base._Ready();
 		_testSFX = GetNode<AudioStreamPlayer2D>("testSFX");
 		_areaAtk = GetNode<Area2D>("AnimatedSprite2D/AttackArea");
 		_hitboxAtk = GetNode<CollisionShape2D>("AnimatedSprite2D/AttackArea/AttackHitbox"); 
@@ -49,6 +46,7 @@ public partial class Player : CharacterBody2D
 		_areaAtk.AreaEntered += OnAttackAreaEntered;
 		//instantiate objects
 		_hurtboxesHit = new();
+		InitStats();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -56,10 +54,12 @@ public partial class Player : CharacterBody2D
 		Vector2 velocity = Velocity;
 		Vector2 direction = Input.GetVector("left", "right", "up", "down"); 
 		CheckFlipped(ref direction);
-		HandleGravity(ref velocity, delta);
+		HandleGravity(delta, ref velocity);
 		HandleAttack(delta);
 		
 		HandleMovement(ref direction, ref velocity, delta);
+		
+		ProcessKnockback(delta, ref velocity);
 		
 		Velocity = velocity;
 		if (Input.IsActionPressed("down")) {
@@ -70,6 +70,45 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 		
 		HandleAnimation(direction, velocity);
+		
+	}
+	
+	private void InitStats() {
+		stats = new DizzyStats {
+	
+		// modifiers, % values represented as scalar factors
+		Hustle = 1.0f,
+		CritChance = 0.05f,
+		CritMod = 1.2f,
+		Steadiness = 1.0f,
+		Coordination = 1.0f,
+		
+		// max values
+		MaxGuts = 100,
+		MaxSpins = 100,
+		MaxSuper = 100,
+		MaxHustle = 1.5f,
+		MaxCritChance = 2.0f,
+		MaxCritMod = 2.0f,
+		MaxSteadiness = 2.0f,
+		MaxCoordination = 2.0f,
+		
+		// min values
+		MinGuts = 1,
+		MinSpins = 1,
+		MinSuper = 1,
+		MinHustle = 1.0f,
+		MinCritChance = 0.0f,
+		MinCritMod = 1.0f,
+		MinSteadiness = 0.85f,
+		MinCoordination = 0.85f,
+		
+		};
+		
+		// metered stats
+		stats.Guts = stats.MaxGuts;
+		stats.Spins = stats.MinSpins;
+		stats.Super = stats.MinSuper;
 		
 	}
 	

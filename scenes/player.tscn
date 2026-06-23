@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://dn3o1yvtr16rp"]
+[gd_scene load_steps=57 format=3 uid="uid://dn3o1yvtr16rp"]
 
 [ext_resource type="Texture2D" uid="uid://jgbnl0hblpdj" path="res://assets/sprites/player/Hit (32x32).png" id="1_ix61y"]
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_splgr"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://clnbcgtyyme8e" path="res://assets/sprites/player/Jump (32x32).png" id="3_crwoe"]
 [ext_resource type="Texture2D" uid="uid://c4qwvmejk327b" path="res://assets/sprites/player/Run (32x32).png" id="4_wn1hi"]
 [ext_resource type="AudioStream" uid="uid://bh2gcswaocll8" path="res://assets/sfx/jump.wav" id="6_5028x"]
+[ext_resource type="Script" path="res://scripts/HurtBox.cs" id="12_c2700"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ohrf"]
 atlas = ExtResource("2_vu6bc")
@@ -372,6 +373,9 @@ _data = {
 "atk_light": SubResource("Animation_1xmfd")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gnygk"]
+size = Vector2(17, 17.3333)
+
 [node name="player" type="CharacterBody2D"]
 scale = Vector2(3, 3)
 script = ExtResource("1_splgr")
@@ -387,10 +391,12 @@ autoplay = "idle"
 [node name="AttackArea" type="Area2D" parent="AnimatedSprite2D"]
 
 [node name="AttackHitbox" type="CollisionShape2D" parent="AnimatedSprite2D/AttackArea"]
+visible = false
 shape = SubResource("RectangleShape2D_n8ilm")
 disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.5, 4.49999)
 shape = SubResource("RectangleShape2D_y7dty")
 
@@ -411,3 +417,10 @@ limit_left = -562
 limit_top = -358
 limit_right = 590
 limit_bottom = 290
+
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("12_c2700")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0.5, 3.66667)
+shape = SubResource("RectangleShape2D_gnygk")
