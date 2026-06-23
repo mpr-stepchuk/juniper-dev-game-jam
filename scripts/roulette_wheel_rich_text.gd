@@ -28,7 +28,7 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("debug_spin_wheel"):
 		for i in range (randi_range(20,70)):
-			await get_tree().create_timer(0.1*(i/30+1)).timeout
+			await get_tree().create_timer(0.1*(float(i)/30.0+1.0)).timeout
 			clear()
 			push_bgcolor(Color.WHITE)
 			number += 1

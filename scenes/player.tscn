@@ -1,7 +1,7 @@
-[gd_scene load_steps=55 format=3 uid="uid://dn3o1yvtr16rp"]
+[gd_scene format=3 uid="uid://dn3o1yvtr16rp"]
 
 [ext_resource type="Texture2D" uid="uid://jgbnl0hblpdj" path="res://assets/sprites/player/Hit (32x32).png" id="1_ix61y"]
-[ext_resource type="Script" path="res://scripts/Player.cs" id="1_splgr"]
+[ext_resource type="Script" uid="uid://bohxo7dnaqwrb" path="res://scripts/Player.cs" id="1_splgr"]
 [ext_resource type="Texture2D" uid="uid://dqkofwgk5hxot" path="res://assets/sprites/player/Idle (32x32).png" id="2_8dnxh"]
 [ext_resource type="Resource" uid="uid://ds366ds5n6aio" path="res://resources/player/Player_LightAttack.tres" id="2_dtxsb"]
 [ext_resource type="Texture2D" uid="uid://c64ofrsvtcq8i" path="res://assets/sprites/player/Fall (32x32).png" id="2_e7382"]
@@ -368,46 +368,47 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r7e6a"]
 _data = {
-"atk_heavy": SubResource("Animation_anvew"),
-"atk_light": SubResource("Animation_1xmfd")
+&"atk_heavy": SubResource("Animation_anvew"),
+&"atk_light": SubResource("Animation_1xmfd")
 }
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" unique_id=38545413]
 scale = Vector2(3, 3)
 script = ExtResource("1_splgr")
 AtkLight = ExtResource("2_dtxsb")
 AtkHeavy = ExtResource("3_5rmtj")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=232786511]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_h3qt1")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="AttackArea" type="Area2D" parent="AnimatedSprite2D"]
+[node name="AttackArea" type="Area2D" parent="AnimatedSprite2D" unique_id=204572453]
 
-[node name="AttackHitbox" type="CollisionShape2D" parent="AnimatedSprite2D/AttackArea"]
+[node name="AttackHitbox" type="CollisionShape2D" parent="AnimatedSprite2D/AttackArea" unique_id=562665122]
 shape = SubResource("RectangleShape2D_n8ilm")
 disabled = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1854809437]
 position = Vector2(0.5, 4.49999)
 shape = SubResource("RectangleShape2D_y7dty")
 
-[node name="testSFX" type="AudioStreamPlayer2D" parent="."]
+[node name="testSFX" type="AudioStreamPlayer2D" parent="." unique_id=1538066540]
 stream = ExtResource("6_5028x")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=597903501]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_r7e6a")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=263295295]
+libraries/ = SubResource("AnimationLibrary_r7e6a")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=766486706]
+physics_interpolation_mode = 2
 offset = Vector2(0, -100)
 zoom = Vector2(1.5, 1.5)
 limit_left = -562
 limit_top = -358
 limit_right = 590
 limit_bottom = 290
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
