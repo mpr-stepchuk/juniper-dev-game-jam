@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://dn3o1yvtr16rp"]
+[gd_scene load_steps=57 format=3 uid="uid://dn3o1yvtr16rp"]
 
 [ext_resource type="Texture2D" uid="uid://jgbnl0hblpdj" path="res://assets/sprites/player/Hit (32x32).png" id="1_ix61y"]
-[ext_resource type="Script" uid="uid://bohxo7dnaqwrb" path="res://scripts/Player.cs" id="1_splgr"]
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_splgr"]
 [ext_resource type="Texture2D" uid="uid://dqkofwgk5hxot" path="res://assets/sprites/player/Idle (32x32).png" id="2_8dnxh"]
 [ext_resource type="Resource" uid="uid://ds366ds5n6aio" path="res://resources/player/Player_LightAttack.tres" id="2_dtxsb"]
 [ext_resource type="Texture2D" uid="uid://c64ofrsvtcq8i" path="res://assets/sprites/player/Fall (32x32).png" id="2_e7382"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://clnbcgtyyme8e" path="res://assets/sprites/player/Jump (32x32).png" id="3_crwoe"]
 [ext_resource type="Texture2D" uid="uid://c4qwvmejk327b" path="res://assets/sprites/player/Run (32x32).png" id="4_wn1hi"]
 [ext_resource type="AudioStream" uid="uid://bh2gcswaocll8" path="res://assets/sfx/jump.wav" id="6_5028x"]
+[ext_resource type="Script" path="res://scripts/HurtBox.cs" id="12_c2700"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ohrf"]
 atlas = ExtResource("2_vu6bc")
@@ -368,41 +369,48 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r7e6a"]
 _data = {
-&"atk_heavy": SubResource("Animation_anvew"),
-&"atk_light": SubResource("Animation_1xmfd")
+"atk_heavy": SubResource("Animation_anvew"),
+"atk_light": SubResource("Animation_1xmfd")
 }
 
-[node name="player" type="CharacterBody2D" unique_id=38545413]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gnygk"]
+size = Vector2(17, 17.3333)
+
+[node name="player" type="CharacterBody2D"]
 scale = Vector2(3, 3)
 script = ExtResource("1_splgr")
 AtkLight = ExtResource("2_dtxsb")
 AtkHeavy = ExtResource("3_5rmtj")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=232786511]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_h3qt1")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="AttackArea" type="Area2D" parent="AnimatedSprite2D" unique_id=204572453]
+[node name="AttackArea" type="Area2D" parent="AnimatedSprite2D"]
 
-[node name="AttackHitbox" type="CollisionShape2D" parent="AnimatedSprite2D/AttackArea" unique_id=562665122]
+[node name="AttackHitbox" type="CollisionShape2D" parent="AnimatedSprite2D/AttackArea"]
+visible = false
 shape = SubResource("RectangleShape2D_n8ilm")
 disabled = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1854809437]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0.5, 4.49999)
 shape = SubResource("RectangleShape2D_y7dty")
 
-[node name="testSFX" type="AudioStreamPlayer2D" parent="." unique_id=1538066540]
+[node name="testSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_5028x")
 
-[node name="Timer" type="Timer" parent="." unique_id=597903501]
+[node name="Timer" type="Timer" parent="."]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=263295295]
-libraries/ = SubResource("AnimationLibrary_r7e6a")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r7e6a")
+}
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=766486706]
+[node name="Camera2D" type="Camera2D" parent="."]
 physics_interpolation_mode = 2
 offset = Vector2(0, -100)
 zoom = Vector2(1.5, 1.5)
@@ -412,3 +420,10 @@ limit_right = 590
 limit_bottom = 290
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
+
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("12_c2700")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0.5, 3.66667)
+shape = SubResource("RectangleShape2D_gnygk")

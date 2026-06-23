@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://djgibgeixrmty"]
+[gd_scene load_steps=10 format=3 uid="uid://djgibgeixrmty"]
 
 [ext_resource type="Texture2D" uid="uid://cbyjlynvipj4c" path="res://assets/sprites/enemies/sandbagIdle.png" id="1_dena8"]
-[ext_resource type="Script" uid="uid://b15or7ygt2bmu" path="res://scripts/Sandbag.cs" id="1_kxy1k"]
+[ext_resource type="Script" path="res://scripts/Sandbag.cs" id="1_kxy1k"]
 [ext_resource type="Texture2D" uid="uid://cimeunirj06qo" path="res://assets/sprites/enemies/sandbagHurt.png" id="2_ry2sc"]
-[ext_resource type="Script" uid="uid://bdw1itb7nysw3" path="res://scripts/HurtBox.cs" id="4_8jam1"]
+[ext_resource type="Script" path="res://scripts/HurtBox.cs" id="4_8jam1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h8fah"]
 atlas = ExtResource("1_dena8")
@@ -41,25 +41,23 @@ size = Vector2(16, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0w0h"]
 size = Vector2(16, 24)
 
-[node name="Sandbag" type="Node2D" unique_id=71520882]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1737060156]
+[node name="sandbag" type="CharacterBody2D"]
 script = ExtResource("1_kxy1k")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=930212660]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2n2t1")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=926622595]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("RectangleShape2D_5uvas")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D" unique_id=1592359228]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
-[node name="HurtBox" type="Area2D" parent="CharacterBody2D" unique_id=1460921556]
+[node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("4_8jam1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/HurtBox" unique_id=74121445]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_d0w0h")

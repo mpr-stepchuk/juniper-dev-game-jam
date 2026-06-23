@@ -1,15 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://b483270gfcoxu"]
+[gd_scene format=3 uid="uid://b483270gfcoxu"]
 
-[ext_resource type="Script" path="res://scripts/roulette_wheel.gd" id="1_6oir3"]
-[ext_resource type="Script" path="res://scripts/roulette_wheel_rich_text.gd" id="2_jox17"]
+[ext_resource type="Script" uid="uid://ceahhbq6v0yaj" path="res://scripts/roulette_wheel.gd" id="1_6oir3"]
+[ext_resource type="Texture2D" uid="uid://ch1l4qiuyv4qy" path="res://assets/sprites/wheel/roulette_wheel.png" id="2_7td6c"]
 
-[node name="RouletteWheel" type="Node2D"]
+[node name="RouletteWheel" type="Node2D" unique_id=264094356]
+rotation = 2.7576203
 script = ExtResource("1_6oir3")
 
-[node name="RouletteWheelRichText" type="RichTextLabel" parent="."]
-offset_left = -20.0
-offset_top = -21.0
-offset_right = 20.0
-offset_bottom = 19.0
-bbcode_enabled = true
-script = ExtResource("2_jox17")
+[node name="CanvasLayer 2" type="CanvasLayer" parent="." unique_id=627056522]
+layer = 2
+follow_viewport_enabled = true
+
+[node name="RouletteWheel" type="Sprite2D" parent="CanvasLayer 2" unique_id=1899172847]
+position = Vector2(2.6222456, 6.490288)
+rotation = 2.7576203
+scale = Vector2(0.40000004, 0.40000004)
+texture = ExtResource("2_7td6c")
+
+[node name="CanvasLayer 3" type="CanvasLayer" parent="." unique_id=1733177563]
+layer = 3
+follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer 3" unique_id=714713023]
+top_level = true
+z_index = 11
+offset_left = -3.0
+offset_top = -97.0
+offset_right = 3.0
+offset_bottom = -71.0

@@ -18,4 +18,5 @@ func _spawn_actor():
 	return
 
 func _on_actor_handler_wave_start():
+	print("START WAVE")
 	_spawn_actor()
