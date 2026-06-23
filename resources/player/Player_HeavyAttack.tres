@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://brjewoe6qq4om"]
+
+[ext_resource type="Script" path="res://scripts/AttackData.cs" id="1_5fq5k"]
+
+[resource]
+script = ExtResource("1_5fq5k")
+AttackName = "Player Heavy Attack"
+AnimationName = "atk_heavy"
+StartupTime = 0.5
+ActiveTime = 1.0
+RecoveryTime = 1.5
+HitboxOffset = Vector2(5, -5)
+HitboxScale = Vector2(2.25, 1)
+Damage = 0
+CanCrit = true
+Friendly = true
+KnockbackForce = 650.0
+KnockbackDuration = 0.15
+KnockbackAngle = 60.0

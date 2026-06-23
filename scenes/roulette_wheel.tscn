@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b483270gfcoxu"]
+
+[ext_resource type="Script" path="res://scripts/roulette_wheel.gd" id="1_6oir3"]
+[ext_resource type="Script" path="res://scripts/roulette_wheel_rich_text.gd" id="2_jox17"]
+
+[node name="RouletteWheel" type="Node2D"]
+script = ExtResource("1_6oir3")
+
+[node name="RouletteWheelRichText" type="RichTextLabel" parent="."]
+offset_left = -20.0
+offset_top = -21.0
+offset_right = 20.0
+offset_bottom = 19.0
+bbcode_enabled = true
+script = ExtResource("2_jox17")

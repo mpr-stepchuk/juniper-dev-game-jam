@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ds366ds5n6aio"]
+
+[ext_resource type="Script" path="res://scripts/AttackData.cs" id="1_g88sb"]
+
+[resource]
+script = ExtResource("1_g88sb")
+AttackName = "Player Light Attack"
+AnimationName = "atk_light"
+StartupTime = 0.25
+ActiveTime = 0.5
+RecoveryTime = 0.75
+HitboxOffset = Vector2(20, 0)
+HitboxScale = Vector2(1, 1)
+Friendly = true
