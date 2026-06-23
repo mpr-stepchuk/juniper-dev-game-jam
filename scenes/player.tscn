@@ -411,12 +411,15 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+physics_interpolation_mode = 2
 offset = Vector2(0, -100)
 zoom = Vector2(1.5, 1.5)
 limit_left = -562
 limit_top = -358
 limit_right = 590
 limit_bottom = 290
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("12_c2700")

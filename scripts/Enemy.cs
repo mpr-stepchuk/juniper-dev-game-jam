@@ -14,7 +14,7 @@ public abstract partial class Enemy : Actor
 	{
 		InitStats();
 		// TODO: rewrite this so it doesn't rely on a certain node tree structure
-		Player = GetParent<Node2D>().GetNode<Player>("player");
+		Player = GetTree().GetFirstNodeInGroup("Player") as Player;
 		// debug
 		GD.Print(Player.Speed);
 		
@@ -26,11 +26,15 @@ public abstract partial class Enemy : Actor
 	}
 	
 	public override void ApplyHit(int damage, float force, float angle, float duration) {
+		GD.Print("HIT!");
+		GD.Print("HP was: "+stats.Guts);
 		stats.Guts -= damage;
+		GD.Print("HP now: "+stats.Guts);
 		if (stats.Guts <= stats.MinGuts) {
 			OnDeath();
 		}
 		ApplyKnockback(force, angle, duration);
+		
 	}
 	
 	protected void FacePlayer() {
