@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ceahhbq6v0yaj" path="res://scripts/roulette_wheel.gd" id="1_6oir3"]
 [ext_resource type="Texture2D" uid="uid://ch1l4qiuyv4qy" path="res://assets/sprites/wheel/roulette_wheel.png" id="2_7td6c"]
+[ext_resource type="PackedScene" uid="uid://bsuxojr7jnc6j" path="res://scenes/generic_button.tscn" id="3_yknb5"]
 
 [node name="RouletteWheel" type="Node2D" unique_id=264094356]
 rotation = 2.7576203
@@ -28,3 +29,52 @@ offset_left = -3.0
 offset_top = -97.0
 offset_right = 3.0
 offset_bottom = -71.0
+
+[node name="Control" type="Control" parent="." unique_id=1408680040]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 141.1759
+offset_top = 93.70892
+offset_right = 181.1759
+offset_bottom = 133.70892
+rotation = -2.7576203
+
+[node name="Button" parent="Control" unique_id=1241253958 instance=ExtResource("3_yknb5")]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 103.0
+offset_right = 97.0
+offset_bottom = 141.0
+rich_text = "LET IT RIDE"
+text_colour = Color(0.8985727, 0.63386625, 0.7604472, 1)
+effect_ratio = 1.2
+
+[node name="Button2" parent="Control" unique_id=1167659573 instance=ExtResource("3_yknb5")]
+layout_mode = 0
+offset_left = -96.0
+offset_top = 103.0
+offset_right = -25.0
+offset_bottom = 141.0
+rich_text = "CASHOUT"
+text_colour = Color(0.81386065, 0.7119351, 0.57627445, 1)
+
+[node name="Button3" parent="Control" unique_id=903149767 instance=ExtResource("3_yknb5")]
+layout_mode = 0
+offset_left = -173.0
+offset_top = -14.0
+offset_right = -102.0
+offset_bottom = 24.0
+toggle_mode = true
+rich_text = "EVEN"
+text_colour = Color(0.7529412, 0, 0, 1)
+effect_ratio = 0.9
+
+[node name="Button4" parent="Control" unique_id=1503415940 instance=ExtResource("3_yknb5")]
+layout_mode = 0
+offset_left = -173.0
+offset_top = -65.0
+offset_right = -102.0
+offset_bottom = -27.0
+toggle_mode = true
+rich_text = "ODD"
+effect_ratio = 0.9

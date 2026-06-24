@@ -14,6 +14,7 @@ public partial class HurtBox : Area2D
 	}
 
 	public void ApplyHit(int damage, float force, float angle, float duration) {
+		GD.Print("APPLYING HIT! Target - "+_owner.GetType().FullName);
 		_owner.ApplyHit(damage, force, angle, duration);
 	}
 }

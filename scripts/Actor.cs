@@ -64,10 +64,10 @@ public partial class Actor : CharacterBody2D
 			float rad = Mathf.DegToRad(_kbAngle);
 			_kbVelocity.X = Mathf.Cos(rad);
 			_kbVelocity.Y = -Mathf.Sin(rad); // have to invert bc godot is backwards
-			GD.Print("normalized vector:   " + _kbVelocity);
+			//GD.Print("normalized vector:   " + _kbVelocity);
 			_kbVelocity *= _kbForce;
 			
-			GD.Print("after applying force: " + _kbVelocity);
+			//GD.Print("after applying force: " + _kbVelocity);
 	}
 	
 	public void HandleGravity (double delta, ref Vector2 velocity) {
@@ -77,6 +77,8 @@ public partial class Actor : CharacterBody2D
 			velocity += GetGravity() * (float)delta;
 		}
 	}
+	
+	public bool FacingRight () { return _facingRight; }
 	
 	public virtual void ApplyHit(int damage, float force, float angle, float duration) {
 	}

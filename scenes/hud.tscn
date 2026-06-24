@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://do6xcntayjem"]
+
+[ext_resource type="Script" path="res://scripts/HUD.cs" id="1_ptd4k"]
+[ext_resource type="Texture2D" uid="uid://cimeunirj06qo" path="res://assets/sprites/enemies/sandbagHurt.png" id="2_mo8wr"]
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = ExtResource("1_ptd4k")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 994.0
+offset_top = 48.0
+offset_right = 1248.0
+offset_bottom = 948.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1206, 68)
+scale = Vector2(4, 4)
+texture = ExtResource("2_mo8wr")

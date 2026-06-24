@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cs3rm5fb4shn0"]
+
+[ext_resource type="Script" path="res://scripts/AttackData.cs" id="1_3merq"]
+
+[resource]
+script = ExtResource("1_3merq")
+AttackName = "Walker Attack"
+AnimationName = "attack"
+StartupTime = 0.5
+ActiveTime = 0.5
+RecoveryTime = 0.5
+HitboxOffset = Vector2(-5, 0)
+HitboxScale = Vector2(1, 1)
+Damage = 25
+CanCrit = false
+Friendly = false
+KnockbackForce = 0.0
+KnockbackDuration = 0.0
+KnockbackAngle = 0.0

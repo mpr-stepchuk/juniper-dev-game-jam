@@ -1,10 +1,11 @@
 namespace Dizzy {
 	
 	public struct DizzyStats {
-		// metered stats
+		// integer stats
 		public int Guts;
 		public int Spins;
 		public int Super;
+		public int Cash;
 	
 		// modifiers, % values represented as scalar factors
 		public float Hustle;

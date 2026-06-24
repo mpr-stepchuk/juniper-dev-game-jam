@@ -12,7 +12,7 @@ public partial class Player : Actor
 	public const float DashDuration = 0.15f;
 	public const float DashSpeed = DashDistance / DashDuration;
 	
-	private DizzyStats stats;
+	private DizzyStats _stats;
 	private bool _isDashing = false;
 	private bool _isAttacking = false;
 	private bool _canAirDash = true;
@@ -30,8 +30,8 @@ public partial class Player : Actor
 	[Export] public AttackData AtkHeavy;
 	
 	private AudioStreamPlayer2D _testSFX;
-	private Area2D _areaAtk;
-	private CollisionShape2D _hitboxAtk;
+	private Area2D _hitbox;
+	private CollisionShape2D _hitboxDim;
 	
 	
 	
@@ -40,10 +40,10 @@ public partial class Player : Actor
 		// fetch nodes
 		base._Ready();
 		_testSFX = GetNode<AudioStreamPlayer2D>("testSFX");
-		_areaAtk = GetNode<Area2D>("AnimatedSprite2D/AttackArea");
-		_hitboxAtk = GetNode<CollisionShape2D>("AnimatedSprite2D/AttackArea/AttackHitbox"); 
+		_hitbox = GetNode<Area2D>("HitBox");
+		_hitboxDim = GetNode<CollisionShape2D>("HitBox/CollisionShape2D"); 
 		// connect signals
-		_areaAtk.AreaEntered += OnAttackAreaEntered;
+		_hitbox.AreaEntered += OnAttackAreaEntered;
 		//instantiate objects
 		_hurtboxesHit = new();
 		InitStats();
@@ -61,6 +61,9 @@ public partial class Player : Actor
 		
 		ProcessKnockback(delta, ref velocity);
 		
+		// debug
+		// GD.Print(_stats.Guts);
+		
 		Velocity = velocity;
 		if (Input.IsActionPressed("down")) {
 			SetCollisionMaskValue(5, false);
@@ -73,10 +76,15 @@ public partial class Player : Actor
 		
 	}
 	
+	public DizzyStats GetStats() {
+		return _stats;
+	}
+	
 	private void InitStats() {
-		stats = new DizzyStats {
+		_stats = new DizzyStats {
 	
 		// modifiers, % values represented as scalar factors
+		Cash = 0,
 		Hustle = 1.0f,
 		CritChance = 0.05f,
 		CritMod = 1.2f,
@@ -95,8 +103,8 @@ public partial class Player : Actor
 		
 		// min values
 		MinGuts = 1,
-		MinSpins = 1,
-		MinSuper = 1,
+		MinSpins = 0,
+		MinSuper = 0,
 		MinHustle = 1.0f,
 		MinCritChance = 0.0f,
 		MinCritMod = 1.0f,
@@ -105,11 +113,15 @@ public partial class Player : Actor
 		
 		};
 		
-		// metered stats
-		stats.Guts = stats.MaxGuts;
-		stats.Spins = stats.MinSpins;
-		stats.Super = stats.MinSuper;
+		// metered _stats
+		_stats.Guts = _stats.MaxGuts;
+		_stats.Spins = _stats.MinSpins;
+		_stats.Super = _stats.MinSuper;
 		
+	}
+	
+	public void AddCash (int cash) {
+		_stats.Cash += cash;
 	}
 	
 	private void CheckFlipped(ref Vector2 direction) {
@@ -141,9 +153,15 @@ public partial class Player : Actor
 		Vector2 offset = _currentAttack.HitboxOffset;
 		if (!_facingRight) {
 			offset.X *= -1;
-		}
-		_areaAtk.Position = offset;
-		_hitboxAtk.Scale = _currentAttack.HitboxScale;
+			_currentAttack.KnockbackAngle = 180 - _currentAttack.KnockbackAngle;
+			
+		} 
+		
+		if (_facingRight && _currentAttack.KnockbackAngle > 90) 
+			_currentAttack.KnockbackAngle = 180 - _currentAttack.KnockbackAngle;
+			
+		_hitbox.Position = offset;
+		_hitboxDim.Scale = _currentAttack.HitboxScale;
 	}
 	
 	private void OnAttackAreaEntered(Area2D area) {
@@ -161,14 +179,28 @@ public partial class Player : Actor
 		}
 	}
 	
+	public override void ApplyHit(int damage, float force, float angle, float duration) {
+		GD.Print("PLAYER HIT!");
+		GD.Print("HP was: "+_stats.Guts);
+		_stats.Guts -= damage;
+		GD.Print("HP now: "+_stats.Guts);
+		if (_stats.Guts <= _stats.MinGuts) {
+			// TODO: write OnDeath();
+			GD.Print("Player DIED! Resetting Guts to "+_stats.MaxGuts);
+			_stats.Guts = _stats.MaxGuts;
+		}
+		ApplyKnockback(force, angle, duration);
+		
+	}
+	
 	public void EnableHitbox() {	
 		_hurtboxesHit.Clear();
-		_hitboxAtk.Disabled = false;
+		_hitboxDim.Disabled = false;
 		_testSFX.Play();
 	}
 	
 	public void DisableHitbox() {
-		_hitboxAtk.Disabled = true;
+		_hitboxDim.Disabled = true;
 	}
 	
 	public void AttackFinished() {

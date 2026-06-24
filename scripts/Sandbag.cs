@@ -22,7 +22,7 @@ public partial class Sandbag : Enemy
 		// debug 
 		Vector2 test = new Vector2(0.0f, 0.0f);
 		if (_kbVelocity != test) {
-			GD.Print(_kbTimer);
+			//GD.Print(_kbTimer);
 		}
 		// FacePlayer();
 		
@@ -32,7 +32,7 @@ public partial class Sandbag : Enemy
 	}
 	
 	public override void InitStats() {
-		stats = new EnemyStats{
+		_stats = new EnemyStats{
 			
 			CashValue = 1000, 
 			MaxGuts = 100,
@@ -40,12 +40,12 @@ public partial class Sandbag : Enemy
 			
 		};
 		
-		stats.Guts = stats.MaxGuts;
+		_stats.Guts = _stats.MaxGuts;
 	}
 	
 	public override void OnDeath() {
-		GD.Print("DIED! - resetting guts to "+stats.MaxGuts);
-		stats.Guts = stats.MaxGuts;
+		GD.Print("DIED! - resetting guts to "+_stats.MaxGuts);
+		_stats.Guts = _stats.MaxGuts;
 	}
 	
 	

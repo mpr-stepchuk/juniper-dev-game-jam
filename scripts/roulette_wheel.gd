@@ -13,20 +13,20 @@ var time_elapsed: float
 func _ready():
 	CanvasLayer1.transform = global_transform
 	CanvasLayer2.transform = global_transform
-	CanvasLayer1.rotation = global_rotation + deg_to_rad(-22)
-	CanvasLayer2.rotation = global_rotation + deg_to_rad(-20.5)
+	CanvasLayer1.rotation = global_rotation
+	CanvasLayer2.rotation = global_rotation
 	spinning = false
 	time_elapsed = 0
 	number = randi_range(1, 36)
 	if(number != 1):
-		rotate(deg_to_rad(-10*(number+1)))
+		rotate(deg_to_rad(-10*(number-1)))
 	CanvasLayer1.rotation = global_rotation
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	CanvasLayer1.rotation = global_rotation
-	time_elapsed += delta*1.0
+	time_elapsed += delta*3.0
 	if(!spinning):
 		if(int(time_elapsed) == 1):
 			time_elapsed = 0.0
