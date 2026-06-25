@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b483270gfcoxu"]
+
+[ext_resource type="Script" uid="uid://ceahhbq6v0yaj" path="res://scripts/roulette_wheel.gd" id="1_6oir3"]
+[ext_resource type="Texture2D" uid="uid://cwigulrmvhvuy" path="res://assets/sprites/wheel/roulette_wheel.png" id="2_7td6c"]
+[ext_resource type="Script" uid="uid://dg2um52q0pf2d" path="res://scenes/color_rect.gd" id="2_yknb5"]
+
+[node name="RouletteWheel" type="Node2D" unique_id=264094356]
+rotation = 2.7576203
+script = ExtResource("1_6oir3")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=714713023]
+top_level = true
+z_index = 3
+offset_left = -3.0
+offset_top = -97.0
+offset_right = 3.0
+offset_bottom = -71.0
+script = ExtResource("2_yknb5")
+
+[node name="RouletteWheel" type="Sprite2D" parent="." unique_id=1899172847]
+position = Vector2(0, -7)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_7td6c")

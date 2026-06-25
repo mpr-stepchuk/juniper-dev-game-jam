@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://jnxqu8otnyil"]
+
+[ext_resource type="Texture2D" uid="uid://bm83vietavq6g" path="res://assets/sprites/enemies/Beholder_idle.png" id="1_sl05r"]
+[ext_resource type="Script" uid="uid://doh3p5yfy8lfx" path="res://scripts/Flyer.cs" id="1_sng5b"]
+[ext_resource type="Resource" uid="uid://cs3rm5fb4shn0" path="res://resources/enemies/Walker_Attack.tres" id="2_isfd2"]
+[ext_resource type="Script" uid="uid://d2u8qwowftead" path="res://scripts/HurtBox.cs" id="3_bduxs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sng5b"]
+atlas = ExtResource("1_sl05r")
+region = Rect2(8, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bduxs"]
+atlas = ExtResource("1_sl05r")
+region = Rect2(50, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfxgb"]
+atlas = ExtResource("1_sl05r")
+region = Rect2(92, 0, 32, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abqj2"]
+atlas = ExtResource("1_sl05r")
+region = Rect2(134, 0, 32, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fh5kw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sng5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bduxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pfxgb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abqj2")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tepc0"]
+radius = 12.0415945
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfuwp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wryqg"]
+
+[node name="Flyer" type="CharacterBody2D" unique_id=1994242726 groups=["Enemy"]]
+motion_mode = 1
+script = ExtResource("1_sng5b")
+AttackData = ExtResource("2_isfd2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2008266954]
+sprite_frames = SubResource("SpriteFrames_fh5kw")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1439730840]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2129927910]
+position = Vector2(-2, 2)
+scale = Vector2(0.85, 0.85)
+shape = SubResource("CircleShape2D_tepc0")
+
+[node name="HitBox" type="Area2D" parent="." unique_id=864693444]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1760396830]
+shape = SubResource("RectangleShape2D_vfuwp")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=691696908]
+visible = false
+script = ExtResource("3_bduxs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1900132922]
+shape = SubResource("RectangleShape2D_wryqg")
+
+[node name="RayDown" type="RayCast2D" parent="." unique_id=111577722]
+target_position = Vector2(0, 30)
+
+[node name="RayUp" type="RayCast2D" parent="." unique_id=582817396]
+target_position = Vector2(0, -30)
+
+[node name="RayRight" type="RayCast2D" parent="." unique_id=501614971]
+target_position = Vector2(30, 0)
+
+[node name="RayLeft" type="RayCast2D" parent="." unique_id=1067755811]
+target_position = Vector2(-30, 0)
