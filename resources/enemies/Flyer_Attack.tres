@@ -1,9 +1,0 @@
-[gd_resource type="Resource" format=3 uid="uid://6xa1rbuoew5e"]
-
-[ext_resource type="Script" uid="uid://cryqj8q7cmin8" path="res://scripts/AttackData.cs" id="1_jp7tl"]
-
-[resource]
-script = ExtResource("1_jp7tl")
-AttackName = "Flyer Attack"
-HitboxScale = Vector2(1.1, 1.1)
-Damage = 10

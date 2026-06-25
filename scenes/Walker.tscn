@@ -232,6 +232,7 @@ script = ExtResource("1_4085t")
 AttackData = ExtResource("2_e6by8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=225121705]
+visible = false
 position = Vector2(-1, 7)
 shape = SubResource("RectangleShape2D_yxbhb")
 
@@ -249,7 +250,6 @@ position = Vector2(6, 1)
 script = ExtResource("7_q64ek")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=11536592]
-visible = false
 position = Vector2(-7, 6)
 shape = SubResource("RectangleShape2D_km2kq")
 
@@ -259,14 +259,16 @@ target_position = Vector2(-16, 23)
 collision_mask = 17
 
 [node name="DetectionRay" type="RayCast2D" parent="." unique_id=5473052]
-visible = false
 position = Vector2(0, 5)
 scale = Vector2(2, 2)
 target_position = Vector2(-12.5, 0)
 collision_mask = 4
 
 [node name="HitBox" type="Area2D" parent="." unique_id=1344880517]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=112682335]
+visible = false
+position = Vector2(-5, 0)
 shape = SubResource("RectangleShape2D_7cm1y")
 disabled = true

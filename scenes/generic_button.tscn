@@ -4,18 +4,27 @@
 [ext_resource type="FontFile" uid="uid://g12x7is5gk64" path="res://assets/fonts/m5x7.ttf" id="1_ndln2"]
 
 [node name="Button" type="Button" unique_id=1241253958]
-top_level = true
+propagate_maximum_size = true
 offset_right = 71.0
 offset_bottom = 38.0
 theme_override_fonts/font = ExtResource("1_ndln2")
 script = ExtResource("1_048u1")
 
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1051606683]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=824100500]
-layout_mode = 0
-offset_left = -7.0
-offset_top = 8.0
-offset_right = 78.0
-offset_bottom = 45.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.72156864, 0.6156863, 0.2901961, 1)
 theme_override_fonts/normal_font = ExtResource("1_ndln2")
