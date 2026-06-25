@@ -251,8 +251,7 @@ scale = Vector2(1, 1)
 
 [node name="Pause Menu" parent="." unique_id=59659315 instance=ExtResource("11_mlgqr")]
 
-[node name="RouletteWheelLayer" parent="." unique_id=339936467 node_paths=PackedStringArray("Player") instance=ExtResource("4_jh32y")]
-Player = NodePath("../ActorHandler/player")
+[node name="RouletteWheelLayer" parent="." unique_id=339936467 instance=ExtResource("4_jh32y")]
 
 [connection signal="wave_end" from="ActorHandler" to="RouletteWheelLayer" method="_on_actor_handler_wave_end"]
 [connection signal="wave_start" from="ActorHandler" to="ActorHandler/Spawner" method="_on_actor_handler_wave_start"]

@@ -1,80 +1,279 @@
 [gd_scene format=3 uid="uid://b483270gfcoxu"]
 
 [ext_resource type="Script" uid="uid://ceahhbq6v0yaj" path="res://scripts/roulette_wheel.gd" id="1_6oir3"]
+[ext_resource type="Script" uid="uid://cuaw4dbeyeph" path="res://scripts/roulette_wheel_layer.gd" id="1_61irv"]
 [ext_resource type="Texture2D" uid="uid://ch1l4qiuyv4qy" path="res://assets/sprites/wheel/roulette_wheel.png" id="2_7td6c"]
 [ext_resource type="PackedScene" uid="uid://bsuxojr7jnc6j" path="res://scenes/generic_button.tscn" id="3_yknb5"]
+[ext_resource type="FontFile" uid="uid://g12x7is5gk64" path="res://assets/fonts/m5x7.ttf" id="4_cjovd"]
 
-[node name="RouletteWheel" type="Node2D" unique_id=264094356]
-rotation = 2.7576203
+[node name="RouletteWheelLayer" type="CanvasLayer" unique_id=339936467]
+process_mode = 3
+layer = 5
+visible = false
+follow_viewport_enabled = true
+script = ExtResource("1_61irv")
+
+[node name="RouletteWheel" type="Node2D" parent="." unique_id=264094356]
 script = ExtResource("1_6oir3")
 
-[node name="CanvasLayer 2" type="CanvasLayer" parent="." unique_id=627056522]
+[node name="CanvasLayer" type="CanvasLayer" parent="RouletteWheel" unique_id=859176023]
 layer = 2
+visible = false
 follow_viewport_enabled = true
 
-[node name="RouletteWheel" type="Sprite2D" parent="CanvasLayer 2" unique_id=1899172847]
+[node name="ColorRect" type="ColorRect" parent="RouletteWheel/CanvasLayer" unique_id=892589846]
+offset_left = -877.0
+offset_top = -740.0
+offset_right = 876.0
+offset_bottom = 662.0
+color = Color(0.13682577, 0.13682574, 0.13682571, 1)
+
+[node name="CanvasLayer 2" type="CanvasLayer" parent="RouletteWheel" unique_id=627056522]
+layer = 2
+visible = false
+follow_viewport_enabled = true
+
+[node name="RouletteWheel" type="Sprite2D" parent="RouletteWheel/CanvasLayer 2" unique_id=1899172847]
 position = Vector2(2.6222456, 6.490288)
 rotation = 2.7576203
 scale = Vector2(0.40000004, 0.40000004)
 texture = ExtResource("2_7td6c")
 
-[node name="CanvasLayer 3" type="CanvasLayer" parent="." unique_id=1733177563]
+[node name="CanvasLayer 3" type="CanvasLayer" parent="RouletteWheel" unique_id=1733177563]
 layer = 3
+visible = false
 follow_viewport_enabled = true
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer 3" unique_id=714713023]
+[node name="ColorRect" type="ColorRect" parent="RouletteWheel/CanvasLayer 3" unique_id=714713023]
 top_level = true
 z_index = 11
 offset_left = -3.0
 offset_top = -97.0
 offset_right = 3.0
 offset_bottom = -71.0
+metadata/_edit_use_anchors_ = true
 
-[node name="Control" type="Control" parent="." unique_id=1408680040]
+[node name="Spin Menu" type="Control" parent="RouletteWheel" unique_id=1408680040]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 141.1759
-offset_top = 93.70892
-offset_right = 181.1759
-offset_bottom = 133.70892
+offset_left = -1.0
+offset_top = 5.0
+offset_right = 39.0
+offset_bottom = 45.0
 rotation = -2.7576203
+metadata/_edit_use_anchors_ = true
 
-[node name="Button" parent="Control" unique_id=1241253958 instance=ExtResource("3_yknb5")]
-layout_mode = 0
-offset_left = 26.0
-offset_top = 103.0
-offset_right = 97.0
-offset_bottom = 141.0
-rich_text = "LET IT RIDE"
-text_colour = Color(0.8985727, 0.63386625, 0.7604472, 1)
-effect_ratio = 1.2
-
-[node name="Button2" parent="Control" unique_id=1167659573 instance=ExtResource("3_yknb5")]
-layout_mode = 0
-offset_left = -96.0
-offset_top = 103.0
-offset_right = -25.0
-offset_bottom = 141.0
-rich_text = "CASHOUT"
-text_colour = Color(0.81386065, 0.7119351, 0.57627445, 1)
-
-[node name="Button3" parent="Control" unique_id=903149767 instance=ExtResource("3_yknb5")]
-layout_mode = 0
-offset_left = -173.0
-offset_top = -14.0
-offset_right = -102.0
-offset_bottom = 24.0
-toggle_mode = true
+[node name="Even" parent="RouletteWheel/Spin Menu" unique_id=903149767 instance=ExtResource("3_yknb5")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.025
+anchor_top = -3.325
+anchor_right = -0.025
+anchor_bottom = -3.325
+offset_left = -172.0
+offset_top = 68.0
+offset_right = -101.0
+offset_bottom = 106.0
 rich_text = "EVEN"
 text_colour = Color(0.7529412, 0, 0, 1)
+font_size = 32
 effect_ratio = 0.9
+metadata/_edit_use_anchors_ = true
 
-[node name="Button4" parent="Control" unique_id=1503415940 instance=ExtResource("3_yknb5")]
-layout_mode = 0
-offset_left = -173.0
-offset_top = -65.0
-offset_right = -102.0
-offset_bottom = -27.0
-toggle_mode = true
+[node name="Odd" parent="RouletteWheel/Spin Menu" unique_id=1503415940 instance=ExtResource("3_yknb5")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 4.149
+anchor_top = 0.84700006
+anchor_right = 4.149
+anchor_bottom = 0.84700006
+offset_left = -338.96002
+offset_top = -47.88
+offset_right = -267.96002
+offset_bottom = -9.880001
 rich_text = "ODD"
+font_size = 32
 effect_ratio = 0.9
+metadata/_edit_use_anchors_ = true
+
+[node name="Spin" parent="RouletteWheel/Spin Menu" unique_id=415083264 instance=ExtResource("3_yknb5")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 4.325
+anchor_top = 1.5
+anchor_right = 4.325
+anchor_bottom = 1.5
+offset_left = -346.0
+offset_top = -23.0
+offset_right = -275.0
+offset_bottom = 15.0
+rich_text = "SPIN"
+text_colour = Color(0.4392157, 0.9764706, 0.25882354, 1)
+font_size = 32
+effect_ratio = 0.9
+metadata/_edit_use_anchors_ = true
+
+[node name="Bet 100" parent="RouletteWheel/Spin Menu" unique_id=1241253958 instance=ExtResource("3_yknb5")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 11.123647
+anchor_top = 0.10026316
+anchor_right = 11.123647
+anchor_bottom = 0.10026316
+offset_left = -346.0
+offset_top = -23.0
+offset_right = -275.0
+offset_bottom = 15.0
+rich_text = "[wave freq=1]BET 1000"
+text_colour = Color(0.4392157, 0.9764706, 0.25882354, 1)
+font_size = 32
+effect_ratio = 0.9
+metadata/_edit_use_anchors_ = true
+
+[node name="Bet 1000" parent="RouletteWheel/Spin Menu" unique_id=943596975 instance=ExtResource("3_yknb5")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 11.123647
+anchor_top = -1.1997368
+anchor_right = 11.123647
+anchor_bottom = -1.1997368
+offset_left = -346.0
+offset_top = -23.0
+offset_right = -275.0
+offset_bottom = 15.0
+rich_text = "[wave freq=1]BET 100"
+text_colour = Color(0.4392157, 0.9764706, 0.25882354, 1)
+font_size = 32
+effect_ratio = 0.9
+metadata/_edit_use_anchors_ = true
+
+[node name="Prize Menu" type="Control" parent="RouletteWheel" unique_id=658862395]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+rotation = -2.7576203
+
+[node name="Let It Ride" parent="RouletteWheel/Prize Menu" unique_id=937200793 instance=ExtResource("3_yknb5")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.636704
+anchor_top = 4.65573
+anchor_right = 1.2617041
+anchor_bottom = 4.65573
+offset_left = 13.531839
+offset_top = -100.22919
+offset_right = 84.53184
+offset_bottom = -62.229187
+rich_text = "[wave]LET IT RIDE"
+text_colour = Color(0.8985727, 0.63386625, 0.7604472, 1)
+font_size = 32
+effect_ratio = 1.2
+metadata/_edit_use_anchors_ = true
+
+[node name="Cashout" parent="RouletteWheel/Prize Menu" unique_id=1167659573 instance=ExtResource("3_yknb5")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -7.476158
+anchor_top = 3.2821465
+anchor_right = -6.926158
+anchor_bottom = 3.2821465
+offset_left = 169.04633
+offset_top = -46.28585
+offset_right = 240.04633
+offset_bottom = -8.285851
+rich_text = "[wave]CASHOUT"
+text_colour = Color(0.81386065, 0.7119351, 0.57627445, 1)
+font_size = 32
+metadata/_edit_use_anchors_ = true
+
+[node name="Display" type="Control" parent="RouletteWheel" unique_id=524520112]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+rotation = -2.7576203
+
+[node name="CashBet" type="RichTextLabel" parent="RouletteWheel/Display" unique_id=389110113]
+layout_mode = 0
+offset_left = 5.0
+offset_top = -137.0
+offset_right = 72.0
+offset_bottom = -122.0
+theme_override_fonts/normal_font = ExtResource("4_cjovd")
+text = "CASH BET:"
+
+[node name="CashBetDisplay" type="RichTextLabel" parent="RouletteWheel/Display" unique_id=334552219]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -121.0
+offset_right = 66.0
+offset_bottom = -106.0
+theme_override_fonts/normal_font = ExtResource("4_cjovd")
+
+[node name="BettingOn" type="RichTextLabel" parent="RouletteWheel/Display" unique_id=610913855]
+layout_mode = 0
+offset_left = -71.0
+offset_top = -137.0
+offset_right = -4.0
+offset_bottom = -122.0
+theme_override_fonts/normal_font = ExtResource("4_cjovd")
+text = "BETTING ON:"
+
+[node name="BettingOnDisplay" type="RichTextLabel" parent="RouletteWheel/Display" unique_id=1593471295]
+layout_mode = 0
+offset_left = -75.0
+offset_top = -119.0
+offset_right = -8.0
+offset_bottom = -104.0
+theme_override_fonts/normal_font = ExtResource("4_cjovd")
+text = "
+"
+
+[node name="Prize Picker" type="Control" parent="RouletteWheel" unique_id=1562279234]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Prize1" parent="RouletteWheel/Prize Picker" unique_id=124493640 instance=ExtResource("3_yknb5")]
+layout_mode = 0
+offset_left = 56.0
+offset_top = -20.0
+offset_right = 127.0
+offset_bottom = 18.0
+text_colour = Color(1, 1, 1, 1)
+update_number = 0
+
+[node name="Prize2" parent="RouletteWheel/Prize Picker" unique_id=122454769 instance=ExtResource("3_yknb5")]
+layout_mode = 0
+offset_left = -36.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 18.0
+text_colour = Color(1, 1, 1, 1)
+update_number = 1
+
+[node name="Prize3" parent="RouletteWheel/Prize Picker" unique_id=207584740 instance=ExtResource("3_yknb5")]
+layout_mode = 0
+offset_left = -134.0
+offset_top = -19.0
+offset_right = -63.0
+offset_bottom = 19.0
+text_colour = Color(1, 1, 1, 1)
+update_number = 2
+
+[connection signal="update_button" from="RouletteWheel" to="RouletteWheel/Prize Picker/Prize1" method="_on_roulette_wheel_update_button"]
+[connection signal="update_button" from="RouletteWheel" to="RouletteWheel/Prize Picker/Prize2" method="_on_roulette_wheel_update_button"]
+[connection signal="update_button" from="RouletteWheel" to="RouletteWheel/Prize Picker/Prize3" method="_on_roulette_wheel_update_button"]
+[connection signal="pressed" from="RouletteWheel/Spin Menu/Even" to="RouletteWheel" method="_on_even_pressed"]
+[connection signal="pressed" from="RouletteWheel/Spin Menu/Odd" to="RouletteWheel" method="_on_odd_pressed"]
+[connection signal="pressed" from="RouletteWheel/Spin Menu/Spin" to="RouletteWheel" method="_on_spin_pressed"]
+[connection signal="pressed" from="RouletteWheel/Spin Menu/Bet 100" to="RouletteWheel" method="_on_bet_100_pressed"]
+[connection signal="pressed" from="RouletteWheel/Spin Menu/Bet 1000" to="RouletteWheel" method="_on_bet_1000_pressed"]
+[connection signal="pressed" from="RouletteWheel/Prize Menu/Let It Ride" to="RouletteWheel" method="_on_let_it_ride_pressed"]
+[connection signal="pressed" from="RouletteWheel/Prize Menu/Cashout" to="RouletteWheel" method="_on_cashout_pressed"]
+[connection signal="pressed" from="RouletteWheel/Prize Picker/Prize1" to="RouletteWheel" method="_on_prize_1_pressed"]
+[connection signal="pressed" from="RouletteWheel/Prize Picker/Prize2" to="RouletteWheel" method="_on_prize_2_pressed"]
+[connection signal="pressed" from="RouletteWheel/Prize Picker/Prize3" to="RouletteWheel" method="_on_prize_3_pressed"]

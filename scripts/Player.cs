@@ -124,6 +124,31 @@ public partial class Player : Actor
 		_stats.Cash += cash;
 	}
 	
+	public void AddHustle (int hustle) {
+		_stats.Hustle += hustle;
+	}
+	
+	public void AddCritChance (int critchance) {
+		_stats.CritChance += critchance;
+	}
+	
+	public void AddCritMod (int critmod) {
+		_stats.CritMod += critmod;
+	}
+	
+	public void AddSteadiness (int steadiness) {
+		_stats.Steadiness += steadiness;
+	}
+	
+	public void AddCoordination (int coordination) {
+		_stats.Coordination += coordination;
+	}
+	
+	public void Teleport (Vector2 coordinates) {
+		GlobalPosition = coordinates;
+		GD.Print("TELEPORTED");
+	}
+	
 	private void CheckFlipped(ref Vector2 direction) {
 		if (direction.X < 0 && _facingRight) {
 			_facingRight = false;

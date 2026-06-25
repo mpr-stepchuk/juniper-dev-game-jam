@@ -237,7 +237,8 @@ script = ExtResource("5_elnm2")
 position = Vector2(269, -19)
 
 [node name="Spawner" parent="ActorHandler" unique_id=166029569 instance=ExtResource("8_c1l68")]
-position = Vector2(-175, -127)
+position = Vector2(-174, -187)
+actor_scene = ExtResource("4_jh32y")
 
 [node name="Spawner2" parent="ActorHandler" unique_id=821316472 instance=ExtResource("8_c1l68")]
 position = Vector2(145, -168)
@@ -251,9 +252,5 @@ scale = Vector2(1, 1)
 
 [node name="Pause Menu" parent="." unique_id=59659315 instance=ExtResource("11_mlgqr")]
 
-[node name="RouletteWheelLayer" parent="." unique_id=339936467 node_paths=PackedStringArray("Player") instance=ExtResource("4_jh32y")]
-Player = NodePath("../ActorHandler/player")
-
-[connection signal="wave_end" from="ActorHandler" to="RouletteWheelLayer" method="_on_actor_handler_wave_end"]
 [connection signal="wave_start" from="ActorHandler" to="ActorHandler/Spawner" method="_on_actor_handler_wave_start"]
 [connection signal="wave_start" from="ActorHandler" to="ActorHandler/Spawner2" method="_on_actor_handler_wave_start"]
