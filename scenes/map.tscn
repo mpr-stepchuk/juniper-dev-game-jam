@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://dskaicc5c6r6d" path="res://assets/sprites/tiles/Starter Tiles - Platformer/Starter Tiles Platformer/DarkCastle.png" id="1_wijl4"]
 [ext_resource type="Texture2D" uid="uid://j1dpyi4smqbe" path="res://assets/sprites/tiles/platform.png" id="3_e0an3"]
 [ext_resource type="PackedScene" uid="uid://b483270gfcoxu" path="res://scenes/roulette_wheel.tscn" id="4_jh32y"]
-[ext_resource type="Script" uid="uid://dcajl1v5vr6ki" path="res://scripts/actor_handler.gd" id="5_elnm2"]
+[ext_resource type="Script" uid="uid://b3d800tc0yi77" path="res://scripts/WaveManager.cs" id="4_wslke"]
 [ext_resource type="PackedScene" uid="uid://dn3o1yvtr16rp" path="res://scenes/player.tscn" id="5_vrrr4"]
-[ext_resource type="PackedScene" uid="uid://djgibgeixrmty" path="res://scenes/sandbag.tscn" id="6_ew3uw"]
+[ext_resource type="PackedScene" uid="uid://jnxqu8otnyil" path="res://scenes/flyer.tscn" id="6_gw3fx"]
 [ext_resource type="PackedScene" uid="uid://vaf45k0ofnqc" path="res://scenes/spawner.tscn" id="8_c1l68"]
 [ext_resource type="PackedScene" uid="uid://cgvfobcq3imyx" path="res://scenes/Walker.tscn" id="9_be0no"]
 [ext_resource type="PackedScene" uid="uid://do6xcntayjem" path="res://scenes/hud.tscn" id="10_blm8a"]
@@ -230,30 +230,27 @@ tile_map_data = PackedByteArray("AAD5//7/AAAEAAQAAAD5////AAAEAAAAAAD5/wAAAAAAAAA
 tile_set = SubResource("TileSet_iw27f")
 collision_enabled = false
 
-[node name="ActorHandler" type="Node2D" parent="." unique_id=264195062]
-script = ExtResource("5_elnm2")
+[node name="WaveManager" type="Node2D" parent="." unique_id=264195062 groups=["WaveManager"]]
+script = ExtResource("4_wslke")
+WalkerScene = ExtResource("9_be0no")
+FlyerScene = ExtResource("6_gw3fx")
 
-[node name="sandbag" parent="ActorHandler" unique_id=2028891464 instance=ExtResource("6_ew3uw")]
-position = Vector2(269, -19)
-
-[node name="Spawner" parent="ActorHandler" unique_id=166029569 instance=ExtResource("8_c1l68")]
+[node name="Spawner" parent="WaveManager" unique_id=166029569 instance=ExtResource("8_c1l68")]
 position = Vector2(-175, -127)
 
-[node name="Spawner2" parent="ActorHandler" unique_id=821316472 instance=ExtResource("8_c1l68")]
+[node name="Spawner2" parent="WaveManager" unique_id=821316472 instance=ExtResource("8_c1l68")]
 position = Vector2(145, -168)
-actor_scene = ExtResource("9_be0no")
-
-[node name="player" parent="ActorHandler" unique_id=671115619 instance=ExtResource("5_vrrr4")]
-position = Vector2(-43, -24)
-scale = Vector2(1, 1)
 
 [node name="HUD" parent="." unique_id=1492091875 instance=ExtResource("10_blm8a")]
 
 [node name="Pause Menu" parent="." unique_id=59659315 instance=ExtResource("11_mlgqr")]
 
 [node name="RouletteWheelLayer" parent="." unique_id=339936467 node_paths=PackedStringArray("Player") instance=ExtResource("4_jh32y")]
-Player = NodePath("../ActorHandler/player")
+Player = NodePath("../player")
 
-[connection signal="wave_end" from="ActorHandler" to="RouletteWheelLayer" method="_on_actor_handler_wave_end"]
-[connection signal="wave_start" from="ActorHandler" to="ActorHandler/Spawner" method="_on_actor_handler_wave_start"]
-[connection signal="wave_start" from="ActorHandler" to="ActorHandler/Spawner2" method="_on_actor_handler_wave_start"]
+[node name="player" parent="." unique_id=671115619 instance=ExtResource("5_vrrr4")]
+position = Vector2(-43, -24)
+scale = Vector2(1, 1)
+
+[connection signal="WaveEnd" from="WaveManager" to="RouletteWheelLayer" method="_on_wave_manager_wave_end"]
+[connection signal="end_wheel" from="RouletteWheelLayer" to="WaveManager" method="_on_end_wheel"]

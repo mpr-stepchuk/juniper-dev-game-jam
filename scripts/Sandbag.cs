@@ -31,7 +31,7 @@ public partial class Sandbag : Enemy
 		MoveAndSlide();
 	}
 	
-	public override void InitStats() {
+	protected override void InitStats() {
 		_stats = new EnemyStats{
 			
 			CashValue = 1000, 

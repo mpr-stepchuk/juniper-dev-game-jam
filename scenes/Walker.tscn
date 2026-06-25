@@ -227,7 +227,7 @@ size = Vector2(18, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7cm1y"]
 
-[node name="Walker" type="CharacterBody2D" unique_id=1611579163]
+[node name="Walker" type="CharacterBody2D" unique_id=1611579163 groups=["Enemy"]]
 script = ExtResource("1_4085t")
 AttackData = ExtResource("2_e6by8")
 

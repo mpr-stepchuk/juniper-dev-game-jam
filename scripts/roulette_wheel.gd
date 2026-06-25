@@ -101,7 +101,12 @@ func end_wheel() -> void:
 	PrizeMenu.visible = false
 	PrizePicker.visible = false
 	Display.visible = false
+	
+	print("EMITTING END WHEEL")
+	RouletteWheelLayer.end_wheel.emit()
+	
 	get_tree().paused = false
+	
 	return
 
 func prize_menu() -> void:

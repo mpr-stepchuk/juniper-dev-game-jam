@@ -186,7 +186,7 @@ public partial class Walker : Enemy
 		_flipTimer = _flipCD;
 	}
 	
-	public override void InitStats() {
+	protected override void InitStats() {
 		_stats = new EnemyStats{
 			
 			CashValue = 1000, 

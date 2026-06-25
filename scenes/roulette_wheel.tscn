@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bsuxojr7jnc6j" path="res://scenes/generic_button.tscn" id="3_yknb5"]
 [ext_resource type="FontFile" uid="uid://g12x7is5gk64" path="res://assets/fonts/m5x7.ttf" id="4_cjovd"]
 
-[node name="RouletteWheelLayer" type="CanvasLayer" unique_id=339936467]
+[node name="RouletteWheelLayer" type="CanvasLayer" unique_id=339936467 groups=["WheelLayer"]]
 process_mode = 3
 layer = 5
 visible = false

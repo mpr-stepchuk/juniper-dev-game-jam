@@ -15,6 +15,7 @@ public abstract partial class Enemy : Actor
 		base._Ready();
 		_facingRight = false;
 		InitStats();
+		AddToGroup("Enemy");
 		// TODO: rewrite this so it doesn't rely on a certain node tree structure
 		_player = GetTree().GetFirstNodeInGroup("Player") as Player;
 		// debug
@@ -97,5 +98,5 @@ public abstract partial class Enemy : Actor
 	
 	public abstract void OnDeath();
 	
-	public abstract void InitStats();
+	protected abstract void InitStats();
 }
