@@ -13,6 +13,9 @@ public abstract partial class Enemy : Actor
 	public override void _Ready()
 	{
 		base._Ready();
+		AddToGroup("Enemy");
+		GD.Print($"{Name} added to Enemy group");
+		GD.Print(IsInGroup("Enemy"));
 		_facingRight = false;
 		InitStats();
 		// TODO: rewrite this so it doesn't rely on a certain node tree structure
@@ -97,5 +100,5 @@ public abstract partial class Enemy : Actor
 	
 	public abstract void OnDeath();
 	
-	public abstract void InitStats();
+	protected abstract void InitStats();
 }

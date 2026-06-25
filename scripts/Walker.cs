@@ -13,7 +13,6 @@ public partial class Walker : Enemy
 	public const float DetectionRad = 140.0f;
 	public const float AttackCD = 0.8f;
 	
-	private bool _playerDetected = false;
 	private bool _inAttackRange = false;
 	private bool _chasing = false;
 	private bool _attacking = false;
@@ -133,6 +132,9 @@ public partial class Walker : Enemy
 			_attacking = true;
 			_hitboxDim.Scale = AttackData.HitboxScale;
 			_hitbox.Position = AttackData.HitboxOffset;
+			if (_facingRight)
+				_hitbox.Position *= -1;
+				
 			_animationPlayer.Play(AttackData.AnimationName);
 			_animatedSprite2D.Play(AttackData.AnimationName);
 		}
@@ -180,13 +182,12 @@ public partial class Walker : Enemy
 		
 		base.Flip();
 		_direction *= -1;
-		_hitbox.Position *= -1;
 		_floorRay.SetTargetPosition( new Vector2((_floorRay.GetTargetPosition().X * -1), _floorRay.GetTargetPosition().Y));
 		_atkRangeRay.SetTargetPosition( new Vector2((_atkRangeRay.GetTargetPosition().X * -1), _atkRangeRay.GetTargetPosition().Y));
 		_flipTimer = _flipCD;
 	}
 	
-	public override void InitStats() {
+	protected override void InitStats() {
 		_stats = new EnemyStats{
 			
 			CashValue = 1000, 

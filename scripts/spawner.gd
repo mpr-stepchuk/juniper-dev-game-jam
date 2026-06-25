@@ -17,6 +17,6 @@ func _spawn_actor():
 		get_parent().add_child.call_deferred(actor)
 	return
 
-func _on_actor_handler_wave_start():
+func _on_wave_start():
 	print("START WAVE")
 	_spawn_actor()
