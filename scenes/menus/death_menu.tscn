@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://duqd5mpf1ox8u"]
+
+[ext_resource type="Script" uid="uid://cn2cilpgqr1rf" path="res://scripts/death_menu.gd" id="1_jgt2l"]
+[ext_resource type="PackedScene" uid="uid://bsuxojr7jnc6j" path="res://scenes/generic_button.tscn" id="2_nx5j2"]
+
+[node name="Death Menu" type="CanvasLayer" unique_id=59659315 groups=["DeathMenu"]]
+process_mode = 3
+layer = 6
+script = ExtResource("1_jgt2l")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1327473112]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5294118)
+
+[node name="Retry" parent="." unique_id=1241253958 instance=ExtResource("2_nx5j2")]
+offset_left = 474.0
+offset_top = 250.0
+offset_right = 809.0
+offset_bottom = 359.0
+rich_text = "RETRY"
+text_colour = Color(1, 1, 1, 1)
+font_size = 64
+effect_ratio = 0.8
+
+[node name="Main Menu" parent="." unique_id=734562600 instance=ExtResource("2_nx5j2")]
+offset_left = 474.0
+offset_top = 403.0
+offset_right = 809.0
+offset_bottom = 512.0
+rich_text = "MAIN MENU"
+text_colour = Color(1, 1, 1, 1)
+font_size = 64
+effect_ratio = 0.8
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Main Menu" to="." method="_on_main_menu_pressed"]

@@ -26,7 +26,7 @@ offset_left = -877.0
 offset_top = -740.0
 offset_right = 876.0
 offset_bottom = 662.0
-color = Color(0.13682577, 0.13682574, 0.13682571, 1)
+color = Color(0.13725491, 0.13725491, 0.13725491, 0.60784316)
 
 [node name="CanvasLayer 2" type="CanvasLayer" parent="RouletteWheel" unique_id=627056522]
 layer = 2

@@ -5,6 +5,7 @@ using Dizzy;
 
 public partial class HUD : CanvasLayer
 {
+	private int prevGuts = 0;
 	
 	private Player _player;
 	private WaveManager _wm;
@@ -20,15 +21,14 @@ public partial class HUD : CanvasLayer
 		_player = GetTree().GetFirstNodeInGroup("Player") as Player;
 		_wm = GetTree().GetFirstNodeInGroup("WaveManager") as WaveManager;
 		_label.AddThemeColorOverride("default_color", Colors.Yellow);
+		_stats = _player.GetStats();
 		GD.Print("HUD Ready");
-		if (_player != null) {
-			_healthBar.InitGuts(_stats.Guts);
-		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		prevGuts = _stats.Guts;
 		if (_player == null) {
 			GD.PrintErr("ERR(HUD._Process()) - no player found");
 			return;
@@ -36,7 +36,11 @@ public partial class HUD : CanvasLayer
 	
 		
 		_stats = _player.GetStats();
-		_healthBar.SetGuts(_stats.Guts);
+		
+		if (_stats.Guts < prevGuts || _stats.Guts > prevGuts) {
+			_healthBar.SetGuts(_stats.Guts);
+		}
+		
 		_label.Text = string.Format("Guts: {0}\nSpins: {1}\nSuper: {2}\nCash: ${3}\nWave: {4}\nEnemies Left: {5}",
 		_stats.Guts,
 		_stats.Spins,
@@ -45,5 +49,12 @@ public partial class HUD : CanvasLayer
 		_wm.WaveCount,
 		_wm.EnemiesLeft
 		);
+	}
+	
+	public void InitHud() {
+		if (_player != null) {
+			_stats = _player.GetStats();
+			_healthBar.InitGuts(_stats.Guts);
+		}
 	}
 }

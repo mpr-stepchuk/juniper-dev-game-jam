@@ -15,7 +15,6 @@ signal update_button
 @onready var PrizeButton2 = $"Prize Picker/Prize2"
 @onready var PrizeButton3 = $"Prize Picker/Prize3"
 @onready var RouletteWheelLayer = $".."
-
 @onready var Player = RouletteWheelLayer.Player
 
 var win: bool = false
@@ -73,6 +72,7 @@ func spin_wheel() -> void:
 	return
 
 func start_wheel() -> void:
+	Player = RouletteWheelLayer.Player
 	time_elapsed = 0
 	money_bet = 0
 	even_odd = 0
@@ -191,6 +191,8 @@ func _on_let_it_ride_pressed() -> void:
 func _on_cashout_pressed() -> void:
 	Display.visible = false
 	PrizeMenu.visible = false
+	if win == true:
+		Player.AddCash(money_bet)
 	prize_menu()
 
 
@@ -209,7 +211,8 @@ func _on_even_pressed() -> void:
 
 
 func _on_spin_pressed() -> void:
-	if even_odd != 0 and !spinning:
+	if even_odd != 0 and !spinning and money_bet != 0:
+		SpinMenu.visible = false
 		spinning = true
 		await spin_wheel()
 		spinning = true
@@ -226,22 +229,25 @@ func _on_spin_pressed() -> void:
 			win = false
 			prize_mult = 0.5
 			print("LOSER!")
-		SpinMenu.visible = false
 		PrizeMenu.visible = true
 		await get_tree().create_timer(2.0).timeout
 	return
 
 
 func _on_bet_100_pressed():
-	money_bet += 1000.0
-	CashBetDisplay.clear()
-	CashBetDisplay.append_text(str(money_bet))
+	if money_bet < money_bet + Player.GetCash():
+		money_bet += 1000.0
+		Player.AddCash(-1000)
+		CashBetDisplay.clear()
+		CashBetDisplay.append_text(str(money_bet))
 
 
 func _on_bet_1000_pressed():
-	money_bet += 100.0
-	CashBetDisplay.clear()
-	CashBetDisplay.append_text(str(money_bet))
+	if money_bet < money_bet + Player.GetCash():
+		money_bet += 100.0
+		Player.AddCash(-100)
+		CashBetDisplay.clear()
+		CashBetDisplay.append_text(str(money_bet))
 
 
 func _on_prize_1_pressed():

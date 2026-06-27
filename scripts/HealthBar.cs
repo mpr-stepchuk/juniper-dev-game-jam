@@ -1,9 +1,10 @@
 using Godot;
 using System;
 
+using Dizzy;
+
 public partial class HealthBar : ProgressBar
 {
-	
 	private Timer _barTimer;
 	private ProgressBar _dmgBar;
 	private int _guts;
@@ -15,19 +16,11 @@ public partial class HealthBar : ProgressBar
 		_dmgBar = GetNode<ProgressBar>("DamageBar");
 		_guts = 0;
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 	
 	public void SetGuts(int newGuts) {
 		int prevGuts = _guts;
 		_guts = (int) Mathf.Min(MaxValue, newGuts);
 		Value = _guts;
-		
-		//if (_guts <= 0)
-			//QueueFree();
 		
 		if (_guts < prevGuts) {
 			_barTimer.Start();
@@ -44,7 +37,7 @@ public partial class HealthBar : ProgressBar
 		_dmgBar.Value = _guts;
 	}
 	
-	public void OnTimerTimeout(){
+	public void _on_timer_timeout(){
 		_dmgBar.Value = _guts;
 	}
 }

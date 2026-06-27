@@ -32,7 +32,7 @@ public partial class Player : Actor
 	private AudioStreamPlayer2D _testSFX;
 	private Area2D _hitbox;
 	private CollisionShape2D _hitboxDim;
-	
+	private  HUD _hud;
 	
 	
 	public override void _Ready()
@@ -41,12 +41,15 @@ public partial class Player : Actor
 		base._Ready();
 		_testSFX = GetNode<AudioStreamPlayer2D>("testSFX");
 		_hitbox = GetNode<Area2D>("HitBox");
-		_hitboxDim = GetNode<CollisionShape2D>("HitBox/CollisionShape2D"); 
+		_hitboxDim = GetNode<CollisionShape2D>("HitBox/CollisionShape2D");
+		_hud = GetNode<HUD>("HUD");
 		// connect signals
 		_hitbox.AreaEntered += OnAttackAreaEntered;
 		//instantiate objects
 		_hurtboxesHit = new();
 		InitStats();
+		NavigationManager.Instance.OnPlayerSpawn += _OnSpawn;
+		_hud.InitHud();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -120,6 +123,18 @@ public partial class Player : Actor
 		
 	}
 	
+	public void SetStats (DizzyStats stats) {
+		_stats = stats;
+	}
+	
+	public void AddGuts (int guts) {
+		_stats.Guts = Mathf.Min(_stats.Guts + guts, 100);
+	}
+	
+	public int GetCash (){
+		return _stats.Cash;
+	}
+	
 	public void AddCash (int cash) {
 		_stats.Cash += cash;
 	}
@@ -147,6 +162,13 @@ public partial class Player : Actor
 	public void Teleport (Vector2 coordinates) {
 		GlobalPosition = coordinates;
 		GD.Print("TELEPORTED");
+	}
+	
+	public void _OnSpawn (Vector2 spawn_position){
+		GlobalPosition = spawn_position;
+		GD.Print("SET SPAWN POSITION");
+		WaveManager _waveManager = GetTree().GetFirstNodeInGroup("WaveManager") as WaveManager;
+		_waveManager.OnPlayerSpawn();
 	}
 	
 	private void CheckFlipped(ref Vector2 direction) {
@@ -210,13 +232,12 @@ public partial class Player : Actor
 		_stats.Guts -= damage;
 		GD.Print("HP now: "+_stats.Guts);
 		if (_stats.Guts <= _stats.MinGuts) {
-			// TODO: write OnDeath();
-			GD.Print("Player DIED! Resetting Guts to "+_stats.MaxGuts);
-			_stats.Guts = _stats.MaxGuts;
+			NavigationManager.Instance.PlayerDeath();
 		}
 		ApplyKnockback(force, angle, duration);
 		
 	}
+	
 	
 	public void EnableHitbox() {	
 		_hurtboxesHit.Clear();
@@ -314,4 +335,5 @@ public partial class Player : Actor
 			_animatedSprite2D.SetFlipH(true);
 		}
 	}
+	
 }

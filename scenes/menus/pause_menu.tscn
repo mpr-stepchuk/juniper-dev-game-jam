@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://dqynhw2ybvuux"]
+
+[ext_resource type="Script" uid="uid://bq5d45w3bbrj3" path="res://scripts/menu.gd" id="1_7unhi"]
+[ext_resource type="PackedScene" uid="uid://bsuxojr7jnc6j" path="res://scenes/generic_button.tscn" id="2_gsnt3"]
+
+[node name="Pause Menu" type="CanvasLayer" unique_id=59659315]
+process_mode = 3
+layer = 6
+script = ExtResource("1_7unhi")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1327473112]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5294118)
+
+[node name="Button" parent="." unique_id=1241253958 instance=ExtResource("2_gsnt3")]
+offset_left = 474.0
+offset_top = 250.0
+offset_right = 809.0
+offset_bottom = 359.0
+rich_text = "RESUME"
+text_colour = Color(1, 1, 1, 1)
+font_size = 64
+effect_ratio = 0.8
+
+[node name="MainMenu" parent="." unique_id=734562600 instance=ExtResource("2_gsnt3")]
+offset_left = 474.0
+offset_top = 403.0
+offset_right = 809.0
+offset_bottom = 512.0
+rich_text = "MAIN MENU"
+text_colour = Color(1, 1, 1, 1)
+font_size = 64
+effect_ratio = 0.8
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]

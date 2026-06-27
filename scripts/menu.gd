@@ -18,3 +18,7 @@ func _input(_event: InputEvent) -> void:
 func _on_button_pressed():
 	visible = false
 	get_tree().paused = false
+
+
+func _on_main_menu_pressed():
+	pass # Replace with function body.

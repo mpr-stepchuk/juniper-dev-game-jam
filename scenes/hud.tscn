@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cg7lwa05tkhhd" path="res://scripts/HUD.cs" id="1_ptd4k"]
 [ext_resource type="PackedScene" uid="uid://calbo1bjc204u" path="res://scenes/healthbar.tscn" id="2_5ysmq"]
-[ext_resource type="Texture2D" uid="uid://cimeunirj06qo" path="res://assets/sprites/enemies/sandbagHurt.png" id="2_mo8wr"]
+[ext_resource type="Texture2D" uid="uid://b0ju4ump4ad80" path="res://assets/sprites/dizzy/Dizzy_Idle-Sheet.png" id="3_5ysmq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_047uy"]
+atlas = ExtResource("3_5ysmq")
+region = Rect2(64, 0, 64, 0)
 
 [node name="HUD" type="CanvasLayer" unique_id=1986691717]
 process_mode = 3
@@ -10,10 +14,10 @@ layer = 2
 script = ExtResource("1_ptd4k")
 
 [node name="Healthbar" parent="." unique_id=1477245771 instance=ExtResource("2_5ysmq")]
-offset_left = 912.0
-offset_top = 31.0
-offset_right = -240.0
-offset_bottom = -673.0
+offset_left = 1007.0
+offset_top = 28.0
+offset_right = -145.0
+offset_bottom = -676.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=244527528]
 offset_left = 994.0
@@ -22,6 +26,6 @@ offset_right = 1248.0
 offset_bottom = 948.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=821779931]
-position = Vector2(1206, 68)
+position = Vector2(1200, 48)
 scale = Vector2(4, 4)
-texture = ExtResource("2_mo8wr")
+texture = SubResource("AtlasTexture_047uy")
