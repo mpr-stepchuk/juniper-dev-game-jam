@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://bmubvyvmx6aij"]
 
-[ext_resource type="PackedScene" uid="uid://kolooe26ithc" path="res://scenes/room2.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://bfguustyyrmu2" path="res://scenes/room3.tscn" id="1_o5qli"]
 
 [node name="main" type="Node2D" unique_id=400385225]
 
-[node name="Room2" parent="." unique_id=459396448 instance=ExtResource("1_o5qli")]
-position = Vector2(-299.83, -100.326294)
+[node name="Room3" parent="." unique_id=459396448 instance=ExtResource("1_o5qli")]
