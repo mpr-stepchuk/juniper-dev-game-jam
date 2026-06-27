@@ -15,6 +15,7 @@ signal update_button
 @onready var PrizeButton2 = $"Prize Picker/Prize2"
 @onready var PrizeButton3 = $"Prize Picker/Prize3"
 @onready var RouletteWheelLayer = $".."
+@onready var NumberDisplay = $"Display/Number Display"
 @onready var Player = RouletteWheelLayer.Player
 
 var win: bool = false
@@ -41,20 +42,21 @@ func _ready():
 	spinning = false
 	number = randi_range(1, 36)
 	if(number != 1):
-		CanvasLayer1.rotation += deg_to_rad(-10*(number-1))
+		CanvasLayer1.rotation += deg_to_rad(-11.25*(number-1))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if visible:
+		NumberDisplay.text = str(number)
 		time_elapsed += delta*3.0
 		if(!spinning):
 			if(int(time_elapsed) == 1):
 				time_elapsed = 0.0
 				number += 1
-				CanvasLayer1.rotation += deg_to_rad(-10)
+				CanvasLayer1.rotation += deg_to_rad(-11.25)
 				
-				if number == 37:
+				if number >= 33:
 					number = 1
 
 func spin_wheel() -> void:
@@ -62,9 +64,9 @@ func spin_wheel() -> void:
 	for i in range (randi_range(20,70)):
 		await get_tree().create_timer(0.1*(float(i)/30.0+1.0)).timeout
 		number += 1
-		CanvasLayer1.rotation += deg_to_rad(-10)
+		CanvasLayer1.rotation += deg_to_rad(-11.25)
 		
-		if number == 37:
+		if number >= 33:
 			number = 1
 		
 	spinning = false

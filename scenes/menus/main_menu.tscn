@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://bth7n4wjox8p3" path="res://scripts/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="FontFile" uid="uid://g12x7is5gk64" path="res://assets/fonts/m5x7.ttf" id="1_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://bsuxojr7jnc6j" path="res://scenes/generic_button.tscn" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://ijvym2c2eib6" path="res://assets/sprites/buttons/Blue_Button_Idle.png" id="4_ng0o5"]
+[ext_resource type="Texture2D" uid="uid://km16237syyuh" path="res://assets/sprites/buttons/Blue_Button_Highlight.png" id="5_8r73w"]
+[ext_resource type="Texture2D" uid="uid://bn1wunwuy253w" path="res://assets/sprites/buttons/Blue_Button_Pushed.png" id="6_1hnlc"]
 
 [node name="MainMenu" type="CanvasLayer" unique_id=467541533]
 script = ExtResource("1_bqqt6")
@@ -30,20 +33,26 @@ vertical_alignment = 1
 [node name="Play" parent="." unique_id=1241253958 instance=ExtResource("1_l6cm7")]
 offset_left = 513.0
 offset_top = 309.0
-offset_right = 739.0
-offset_bottom = 397.0
+offset_right = 729.0
+offset_bottom = 405.0
 rich_text = "PLAY"
 text_colour = Color(1, 1, 1, 1)
 font_size = 48
+idle_texture = ExtResource("4_ng0o5")
+hover_texture = ExtResource("5_8r73w")
+pushed_texture = ExtResource("6_1hnlc")
 
 [node name="Quit" parent="." unique_id=2067570165 instance=ExtResource("1_l6cm7")]
 offset_left = 514.0
 offset_top = 446.0
-offset_right = 740.0
-offset_bottom = 534.0
+offset_right = 730.0
+offset_bottom = 542.0
 rich_text = "QUIT"
 text_colour = Color(1, 1, 1, 1)
 font_size = 48
+idle_texture = ExtResource("4_ng0o5")
+hover_texture = ExtResource("5_8r73w")
+pushed_texture = ExtResource("6_1hnlc")
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

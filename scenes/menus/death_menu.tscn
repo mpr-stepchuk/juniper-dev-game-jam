@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cn2cilpgqr1rf" path="res://scripts/death_menu.gd" id="1_jgt2l"]
 [ext_resource type="PackedScene" uid="uid://bsuxojr7jnc6j" path="res://scenes/generic_button.tscn" id="2_nx5j2"]
+[ext_resource type="FontFile" uid="uid://g12x7is5gk64" path="res://assets/fonts/m5x7.ttf" id="3_nx5j2"]
+[ext_resource type="Texture2D" uid="uid://2s1ufrl3ensu" path="res://assets/sprites/buttons/Yellow_Button_Idle.png" id="3_oswhh"]
+[ext_resource type="Texture2D" uid="uid://tayfhdshdcgo" path="res://assets/sprites/buttons/Yellow_Button_Highlight.png" id="4_5d0ut"]
+[ext_resource type="Texture2D" uid="uid://xqnw7cyx2gch" path="res://assets/sprites/buttons/Yellow_Button_Pushed.png" id="5_u1bkw"]
 
 [node name="Death Menu" type="CanvasLayer" unique_id=59659315 groups=["DeathMenu"]]
 process_mode = 3
@@ -17,24 +21,42 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.5294118)
 
 [node name="Retry" parent="." unique_id=1241253958 instance=ExtResource("2_nx5j2")]
-offset_left = 474.0
-offset_top = 250.0
-offset_right = 809.0
-offset_bottom = 359.0
+offset_left = 478.0
+offset_top = 228.0
+offset_right = 766.0
+offset_bottom = 356.0
 rich_text = "RETRY"
 text_colour = Color(1, 1, 1, 1)
 font_size = 64
 effect_ratio = 0.8
+idle_texture = ExtResource("3_oswhh")
+hover_texture = ExtResource("4_5d0ut")
+pushed_texture = ExtResource("5_u1bkw")
 
 [node name="Main Menu" parent="." unique_id=734562600 instance=ExtResource("2_nx5j2")]
-offset_left = 474.0
-offset_top = 403.0
-offset_right = 809.0
-offset_bottom = 512.0
+offset_left = 478.0
+offset_top = 408.0
+offset_right = 766.0
+offset_bottom = 536.0
 rich_text = "MAIN MENU"
 text_colour = Color(1, 1, 1, 1)
 font_size = 64
 effect_ratio = 0.8
+idle_texture = ExtResource("3_oswhh")
+hover_texture = ExtResource("4_5d0ut")
+pushed_texture = ExtResource("5_u1bkw")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1071345870]
+offset_left = 428.0
+offset_top = 89.0
+offset_right = 811.0
+offset_bottom = 189.0
+theme_override_fonts/normal_font = ExtResource("3_nx5j2")
+theme_override_font_sizes/normal_font_size = 64
+text = "YOU DIED!"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]
