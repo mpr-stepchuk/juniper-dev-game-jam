@@ -5,8 +5,8 @@
 
 [node name="Button" type="Button" unique_id=1241253958]
 propagate_maximum_size = true
-offset_right = 71.0
-offset_bottom = 38.0
+offset_right = 72.0
+offset_bottom = 32.0
 theme_override_fonts/font = ExtResource("1_ndln2")
 script = ExtResource("1_048u1")
 
@@ -36,3 +36,8 @@ theme_override_font_sizes/mono_font_size = 13
 bbcode_enabled = true
 fit_content = true
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=223808968]
+wait_time = 0.1
+one_shot = true
