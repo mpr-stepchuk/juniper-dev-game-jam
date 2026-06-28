@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cg7lwa05tkhhd" path="res://scripts/HUD.cs" id="1_ptd4k"]
 [ext_resource type="PackedScene" uid="uid://calbo1bjc204u" path="res://scenes/healthbar.tscn" id="2_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://b0ju4ump4ad80" path="res://assets/sprites/dizzy/Dizzy_Idle-Sheet.png" id="3_5ysmq"]
+[ext_resource type="FontFile" uid="uid://g12x7is5gk64" path="res://assets/fonts/m5x7.ttf" id="3_6fi6k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_047uy"]
 atlas = ExtResource("3_5ysmq")
@@ -14,16 +15,18 @@ layer = 2
 script = ExtResource("1_ptd4k")
 
 [node name="Healthbar" parent="." unique_id=1477245771 instance=ExtResource("2_5ysmq")]
-offset_left = 1007.0
-offset_top = 28.0
-offset_right = -145.0
-offset_bottom = -676.0
+offset_left = 901.0
+offset_top = 38.0
+offset_right = -123.0
+offset_bottom = -650.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=244527528]
-offset_left = 994.0
-offset_top = 48.0
-offset_right = 1248.0
-offset_bottom = 948.0
+offset_left = 1071.0
+offset_top = 76.0
+offset_right = 1325.0
+offset_bottom = 976.0
+theme_override_fonts/normal_font = ExtResource("3_6fi6k")
+theme_override_font_sizes/normal_font_size = 32
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=821779931]
 position = Vector2(1200, 48)

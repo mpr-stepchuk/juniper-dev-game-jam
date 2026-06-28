@@ -41,7 +41,7 @@ public partial class HUD : CanvasLayer
 			_healthBar.SetGuts(_stats.Guts);
 		}
 		
-		_label.Text = string.Format("Guts: {0}\nSpins: {1}\nSuper: {2}\nCash: ${3}\nWave: {4}\nEnemies Left: {5}",
+		_label.Text = string.Format("Spins: {1}\nSuper: {2}\nCash: ${3}\nWave: {4}\nEnemies Left: {5}",
 		_stats.Guts,
 		_stats.Spins,
 		_stats.Super,
