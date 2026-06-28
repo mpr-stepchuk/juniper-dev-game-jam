@@ -1,6 +1,6 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://brjewoe6qq4om"]
+[gd_resource type="Resource" format=3 uid="uid://brjewoe6qq4om"]
 
-[ext_resource type="Script" path="res://scripts/AttackData.cs" id="1_5fq5k"]
+[ext_resource type="Script" uid="uid://cryqj8q7cmin8" path="res://scripts/AttackData.cs" id="1_5fq5k"]
 
 [resource]
 script = ExtResource("1_5fq5k")
@@ -9,9 +9,9 @@ AnimationName = "atk_heavy"
 StartupTime = 0.5
 ActiveTime = 1.0
 RecoveryTime = 1.5
-HitboxOffset = Vector2(5, -5)
-HitboxScale = Vector2(2.25, 1)
-Damage = 0
+SFXPath = "hitHeavy"
+HitboxOffset = Vector2(5, -10)
+HitboxScale = Vector2(2.25, 1.5)
 CanCrit = true
 Friendly = true
 KnockbackForce = 650.0

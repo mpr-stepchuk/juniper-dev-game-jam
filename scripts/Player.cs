@@ -18,6 +18,7 @@ public partial class Player : Actor
 	private bool _canAirDash = true;
 	private float _attackTimer = 0.0f;
 	private float _dashTimer = 0.0f;
+	private Random _rand;
 	
 	private Vector2 _dashDirection;
 	// tracks all hurtboxes hit by a hitbox while it's active to prevent multi-hits
@@ -29,8 +30,8 @@ public partial class Player : Actor
 	[Export] public AttackData AtkLight;
 	[Export] public AttackData AtkHeavy;
 	
-	private AudioStreamPlayer2D _testSFX;
 	private Area2D _hitbox;
+	private Dictionary<string, AudioStreamPlayer2D> _sfx;
 	private CollisionShape2D _hitboxDim;
 	private  HUD _hud;
 	
@@ -39,7 +40,6 @@ public partial class Player : Actor
 	{
 		// fetch nodes
 		base._Ready();
-		_testSFX = GetNode<AudioStreamPlayer2D>("testSFX");
 		_hitbox = GetNode<Area2D>("HitBox");
 		_hitboxDim = GetNode<CollisionShape2D>("HitBox/CollisionShape2D");
 		_hud = GetNode<HUD>("HUD");
@@ -50,6 +50,11 @@ public partial class Player : Actor
 		InitStats();
 		NavigationManager.Instance.OnPlayerSpawn += _OnSpawn;
 		_hud.InitHud();
+		_sfx = new Dictionary<string, AudioStreamPlayer2D>();
+		_sfx.Add("jump", GetNode<AudioStreamPlayer2D>("jumpSFX"));
+		_sfx.Add("hitLight", GetNode<AudioStreamPlayer2D>("lightSFX"));
+		_sfx.Add("hitHeavy", GetNode<AudioStreamPlayer2D>("heavySFX"));
+		_rand = new Random();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -88,31 +93,31 @@ public partial class Player : Actor
 	
 		// modifiers, % values represented as scalar factors
 		Cash = 0,
-		Hustle = 1.0f,
-		CritChance = 0.05f,
-		CritMod = 1.2f,
-		Steadiness = 1.0f,
-		Coordination = 1.0f,
+		Hustle = 1.0,
+		CritChance = 0.05,
+		CritMod = 1.2,
+		Steadiness = 1.0,
+		Coordination = 1.0,
 		
 		// max values
 		MaxGuts = 100,
 		MaxSpins = 100,
 		MaxSuper = 100,
-		MaxHustle = 1.5f,
-		MaxCritChance = 2.0f,
-		MaxCritMod = 2.0f,
-		MaxSteadiness = 2.0f,
-		MaxCoordination = 2.0f,
+		MaxHustle = 1.5,
+		MaxCritChance = 1.0,
+		MaxCritMod = 2.0,
+		MaxSteadiness = 2.0,
+		MaxCoordination = 2.0,
 		
 		// min values
 		MinGuts = 1,
 		MinSpins = 0,
 		MinSuper = 0,
-		MinHustle = 1.0f,
-		MinCritChance = 0.0f,
-		MinCritMod = 1.0f,
-		MinSteadiness = 0.85f,
-		MinCoordination = 0.85f,
+		MinHustle = 1.0,
+		MinCritChance = 0.0,
+		MinCritMod = 1.0,
+		MinSteadiness = 0.85,
+		MinCoordination = 0.85,
 		
 		};
 		
@@ -222,7 +227,32 @@ public partial class Player : Actor
 			
 		if (!hurtbox.Friendly) {
 			_hurtboxesHit.Add(hurtbox);
-			hurtbox.ApplyHit(_currentAttack.Damage, _currentAttack.KnockbackForce, _currentAttack.KnockbackAngle, _currentAttack.KnockbackDuration);
+			_sfx[_currentAttack.SFXPath].Play();
+			if (_currentAttack.CanCrit)
+			{
+				HandleCrit(hurtbox);
+			}
+			else
+			{
+				hurtbox.ApplyHit(_currentAttack.Damage, _currentAttack.KnockbackForce, _currentAttack.KnockbackAngle, _currentAttack.KnockbackDuration);
+			}
+		}
+	}
+
+	private void HandleCrit(HurtBox hb)
+	{
+		int odds = (int) (100 * _stats.CritChance);
+		int num = _rand.Next(1, 101);
+		if (num <= odds)
+		{
+			GD.Print("CRITICAL!!");
+			int critDmg = (int) (_currentAttack.Damage * _stats.CritMod);
+			float critForce = (float) (_currentAttack.KnockbackForce * _stats.CritMod);
+			hb.ApplyHit(critDmg, critForce, _currentAttack.KnockbackAngle, _currentAttack.KnockbackDuration);
+		}
+		else
+		{
+			hb.ApplyHit(_currentAttack.Damage, _currentAttack.KnockbackForce, _currentAttack.KnockbackAngle, _currentAttack.KnockbackDuration);
 		}
 	}
 	
@@ -242,7 +272,6 @@ public partial class Player : Actor
 	public void EnableHitbox() {	
 		_hurtboxesHit.Clear();
 		_hitboxDim.Disabled = false;
-		_testSFX.Play();
 	}
 	
 	public void DisableHitbox() {
@@ -297,12 +326,14 @@ public partial class Player : Actor
 		// Handle Jump.
 		if (Input.IsActionJustPressed("up") && IsOnFloor())
 		{
+			_animatedSprite2D.Play("jump");
 			velocity.Y = JumpVelocity;
+			_sfx["jump"].Play();
 		}
 
 		if (direction.X != 0.0f)
 		{
-			velocity.X = direction.X * Speed;
+			velocity.X = direction.X * Speed * (float)_stats.Hustle ;
 		}
 		else
 		{
@@ -315,24 +346,23 @@ public partial class Player : Actor
 		if (_isAttacking) {
 			return;
 		}
-		if (velocity.X > 1 || velocity.X < -1) {
-			_animatedSprite2D.Play("run");
-		} else {
-			_animatedSprite2D.Play("idle");
-		}
-		
-		if (!IsOnFloor()) {
-			if (velocity.Y > 0) {
-				_animatedSprite2D.Play("fall");
-			} else {
-				_animatedSprite2D.Play("jump");
+		if (IsOnFloor())
+		{
+			if (velocity.X > 1 || velocity.X < -1) {
+				_animatedSprite2D.Play("run");
+			} else if (!_isAttacking ) {
+				_animatedSprite2D.Play("idle");
 			}
 		}
 		
+		if (!IsOnFloor() && velocity.Y > 0) {
+			_animatedSprite2D.Play("fall");
+		}
+		
 		if (_facingRight) {
-			_animatedSprite2D.SetFlipH(false);
-		} else if (!_facingRight) {
 			_animatedSprite2D.SetFlipH(true);
+		} else if (!_facingRight) {
+			_animatedSprite2D.SetFlipH(false);
 		}
 	}
 	

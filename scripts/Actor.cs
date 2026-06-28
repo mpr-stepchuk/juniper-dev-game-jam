@@ -13,8 +13,8 @@ public partial class Actor : CharacterBody2D
 	protected float _kbAngle;
 	protected Vector2 _kbVelocity;
 	
-	protected AnimatedSprite2D _animatedSprite2D;
-	protected AnimationPlayer _animationPlayer;
+	public AnimatedSprite2D _animatedSprite2D;
+	public AnimationPlayer _animationPlayer;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

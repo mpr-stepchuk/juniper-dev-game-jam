@@ -174,7 +174,7 @@ public partial class Walker : Enemy
 		}
 	}
 	
-	protected override void Flip() {
+	public override void Flip() {
 		if (_flipTimer > 0)
 			return;
 		

@@ -8,31 +8,31 @@ namespace Dizzy {
 		public int Cash;
 	
 		// modifiers, % values represented as scalar factors
-		public float Hustle;
-		public float CritChance;
-		public float CritMod;
-		public float Steadiness;
-		public float Coordination;
+		public double Hustle;
+		public double CritChance;
+		public double CritMod;
+		public double Steadiness;
+		public double Coordination;
 		
 		// max values
 		public int MaxGuts;
 		public int MaxSpins;
 		public int MaxSuper;
-		public float MaxHustle;
-		public float MaxCritChance;
-		public float MaxCritMod;
-		public float MaxSteadiness;
-		public float MaxCoordination;
+		public double MaxHustle;
+		public double MaxCritChance;
+		public double MaxCritMod;
+		public double MaxSteadiness;
+		public double MaxCoordination;
 		
 		// min values
 		public int MinGuts;
 		public int MinSpins;
 		public int MinSuper;
-		public float MinHustle;
-		public float MinCritChance;
-		public float MinCritMod;
-		public float MinSteadiness;
-		public float MinCoordination;
+		public double MinHustle;
+		public double MinCritChance;
+		public double MinCritMod;
+		public double MinSteadiness;
+		public double MinCoordination;
 	}
 	
 }

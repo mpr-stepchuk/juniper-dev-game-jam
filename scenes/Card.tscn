@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bu2wav322jc85"]
+
+[ext_resource type="Script" uid="uid://6n74md6kb8xk" path="res://scripts/Card.cs" id="1_tgmmg"]
+[ext_resource type="Resource" uid="uid://cib84n5txc5vf" path="res://resources/enemies/Boss_CardAttack.tres" id="2_4dx8l"]
+[ext_resource type="Texture2D" uid="uid://c26sg6el7hxlf" path="res://assets/sprites/enemies/Boss_Card_Flip_Left-Sheet.png" id="3_4dx8l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qf083"]
+atlas = ExtResource("3_4dx8l")
+region = Rect2(215, 0, 32, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vcw7r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qf083")
+}],
+"loop": 1,
+"name": &"spinning",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcw7r"]
+size = Vector2(14, 6)
+
+[node name="Card" type="Area2D" unique_id=1590621672]
+script = ExtResource("1_tgmmg")
+Direction = Vector2(-1, 0)
+_speed = 100.0
+AtkData = ExtResource("2_4dx8l")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=995311321]
+texture_filter = 1
+rotation = 1.5707964
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_vcw7r")
+animation = &"spinning"
+autoplay = "spinning"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1186966791]
+shape = SubResource("RectangleShape2D_vcw7r")

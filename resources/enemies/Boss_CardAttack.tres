@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://cib84n5txc5vf"]
+
+[ext_resource type="Script" uid="uid://cryqj8q7cmin8" path="res://scripts/AttackData.cs" id="1_k2u1b"]
+
+[resource]
+script = ExtResource("1_k2u1b")
+AttackName = "Boss Card Attack"
+AnimationName = "spin"
+Damage = 10

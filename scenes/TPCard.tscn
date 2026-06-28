@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://dipasejdt0wfi"]
+
+[ext_resource type="Script" uid="uid://brqfdosuyo527" path="res://scripts/TPCard.cs" id="1_fgb6l"]
+[ext_resource type="Texture2D" uid="uid://c26sg6el7hxlf" path="res://assets/sprites/enemies/Boss_Card_Flip_Left-Sheet.png" id="2_q2snc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2snc"]
+atlas = ExtResource("2_q2snc")
+region = Rect2(576, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdyu3"]
+atlas = ExtResource("2_q2snc")
+region = Rect2(480, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgb6l"]
+atlas = ExtResource("2_q2snc")
+region = Rect2(384, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3fys"]
+atlas = ExtResource("2_q2snc")
+region = Rect2(288, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gc26g"]
+atlas = ExtResource("2_q2snc")
+region = Rect2(192, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6m8cb"]
+atlas = ExtResource("2_q2snc")
+region = Rect2(96, 0, 96, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8oux7"]
+atlas = ExtResource("2_q2snc")
+region = Rect2(0, 0, 96, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vcw7r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2snc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdyu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgb6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3fys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gc26g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6m8cb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8oux7")
+}],
+"loop": 0,
+"name": &"flip",
+"speed": 7.0
+}]
+
+[node name="TPCard" type="Node2D" unique_id=945098412]
+script = ExtResource("1_fgb6l")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1108322297]
+texture_filter = 1
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_vcw7r")
+animation = &"flip"

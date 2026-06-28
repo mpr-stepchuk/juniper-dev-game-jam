@@ -4,11 +4,12 @@ public partial class AttackData : Resource
 {
 	[ExportCategory("Name")]
 	[Export] public string AttackName;
-	[ExportCategory("Animation")]
+	[ExportCategory("Animation/SFX")]
 	[Export] public string AnimationName;
 	[Export] public float StartupTime; 
 	[Export] public float ActiveTime;
 	[Export] public float RecoveryTime;
+	[Export] public string SFXPath;
 	[ExportCategory("HitboxDetails")]
 	[Export] public Vector2 HitboxOffset;
 	[Export] public Vector2 HitboxScale;

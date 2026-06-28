@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cs6ddycv1o6x4"]
+
+[ext_resource type="Script" uid="uid://b0orpm4gycvau" path="res://scripts/BossHUD.cs" id="1_mk20u"]
+
+[node name="BossHUD" type="CanvasLayer" unique_id=1446428802]
+script = ExtResource("1_mk20u")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1921620580]
+offset_left = 43.0
+offset_top = 30.0
+offset_right = 378.0
+offset_bottom = 567.0

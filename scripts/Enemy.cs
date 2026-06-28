@@ -6,8 +6,8 @@ using Enemies;
 public abstract partial class Enemy : Actor
 {
 	
-	protected EnemyStats _stats;
-	protected Player _player; 
+	public EnemyStats _stats;
+	public Player _player; 
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -72,7 +72,7 @@ public abstract partial class Enemy : Actor
 		}
 	}
 	
-	protected void FacePlayer() {
+	public void FacePlayer() {
 		if (_player != null) {
 			if (_player.GlobalPosition.X > GlobalPosition.X) {
 				_animatedSprite2D.SetFlipH(true);
@@ -86,7 +86,7 @@ public abstract partial class Enemy : Actor
 		}
 	}
 	
-	protected virtual void Flip () {
+	public virtual void Flip () {
 		if (_facingRight) {
 			_animatedSprite2D.SetFlipH(false);
 			_facingRight = false;
